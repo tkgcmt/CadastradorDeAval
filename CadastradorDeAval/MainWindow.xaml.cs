@@ -24,11 +24,6 @@ namespace CadastradorDeAval
         {
             InitializeComponent();
         }
-
-        private void TituloAuto_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            TituloAuto.Visibility = System.Windows.Visibility.Hidden;
-            TituloEditar.Visibility = System.Windows.Visibility.Visible;
-        }
+        
     }
 }

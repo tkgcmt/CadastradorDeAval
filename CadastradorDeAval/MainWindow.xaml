@@ -6,178 +6,247 @@
         xmlns:local="clr-namespace:CadastradorDeAval"
         mc:Ignorable="d"
         Title="Cadastrador de Avaliações" WindowStartupLocation="CenterScreen" Height="543" Width="968.031">
+    <Window.Resources>
+        <!-- Simple ComboBox 
+    This uses the ComboBoxToggleButton to expand and collapse a Popup control
+    SimpleScrollViewer to allow items to be scrolled and SimpleComboBoxItem to define the look of each item 
+    The Popup shows a list of items in a StackPanel-->
+
+        <Style x:Key="ComboBoxStyleCorQuestao" TargetType="{x:Type ComboBox}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid>
+                            <!-- The ToggleButton is databound to the ComboBox itself to toggle IsDropDownOpen -->
+                            <ToggleButton Grid.Column="2" Template="{DynamicResource ComboBoxToggleButton}" x:Name="ToggleButton" Focusable="false" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" Background="#00000000" BorderBrush="Black">
+                                <ToggleButton.OpacityMask>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="Black" Offset="0"/>
+                                        <GradientStop Color="White" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </ToggleButton.OpacityMask>
+                            </ToggleButton>
+                            <ContentPresenter HorizontalAlignment="Left" Margin="3,3,23,3" x:Name="ContentSite" VerticalAlignment="Center" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" IsHitTestVisible="False"/>
+
+                            <!-- The TextBox must be named PART_EditableTextBox or ComboBox will not recognize it -->
+                            <TextBox Visibility="Hidden" Template="{DynamicResource ComboBoxTextBox}" HorizontalAlignment="Left" Margin="3,3,23,3" x:Name="PART_EditableTextBox" Style="{x:Null}" VerticalAlignment="Center" Focusable="True" Background="Transparent" IsReadOnly="{TemplateBinding IsReadOnly}"/>
+
+                            <!-- The Popup shows the list of items in the ComboBox. IsOpen is databound to IsDropDownOpen which is toggled via the ComboBoxToggleButton -->
+                            <Popup IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" x:Name="Popup" Focusable="False" AllowsTransparency="True" PopupAnimation="Slide">
+                                <Grid MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{TemplateBinding ActualWidth}" x:Name="DropDown" SnapsToDevicePixels="True">
+                                    <Border x:Name="DropDownBorder" Background="{DynamicResource WindowBackgroundBrush}" BorderBrush="{DynamicResource SolidBorderBrush}" BorderThickness="1"/>
+                                    <ScrollViewer Margin="4,6,4,6" Style="{DynamicResource SimpleScrollViewer}" SnapsToDevicePixels="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+
+                                        <!-- The StackPanel is used to display the children by setting IsItemsHost to be True -->
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!-- This forces the DropDown to have a minimum size if it is empty -->
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter Property="MinHeight" Value="95" TargetName="DropDownBorder"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource DisabledForegroundBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                            </Trigger>
+                            <Trigger Property="AllowsTransparency" SourceName="Popup" Value="true">
+                                <Setter Property="CornerRadius" Value="4" TargetName="DropDownBorder"/>
+                                <Setter Property="Margin" Value="0,2,0,0" TargetName="DropDownBorder"/>
+                            </Trigger>
+                            <Trigger Property="IsEditable" Value="true">
+                                <Setter Property="IsTabStop" Value="false"/>
+                                <Setter Property="Visibility" Value="Visible" TargetName="PART_EditableTextBox"/>
+                                <Setter Property="Visibility" Value="Hidden" TargetName="ContentSite"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
     <Grid x:Name="CadastradorDeAvalMain" Width="Auto" Height="Auto" Margin="0,0,-0.084,0" Background="#FF0F0D0D">
         <Grid.RowDefinitions>
-            <RowDefinition Height="41*"/>
-            <RowDefinition Height="30*"/>
-            <RowDefinition Height="173*"/>
-            <RowDefinition Height="256*"/>
-            <RowDefinition Height="16*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="124*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="140"/>
-            <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="760"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid x:Name="QuestaoLista" Margin="0,0,-5,0" Grid.Row="2" Grid.RowSpan="2" Grid.Column="1">
-            <Rectangle Fill="#FFF4F4F5" Stroke="Black" Margin="0,3.898,5,0"/>
-            <ListBox x:Name="listBox" Margin="0,30,5,2.292" Style="{DynamicResource SimpleListBox}">
-                <ListBoxItem Content="Nova Questão" Style="{DynamicResource SimpleListBoxItem}"/>
-            </ListBox>
-            <Label x:Name="label" Content="Questões&#xA;" Margin="0,3.898,5,0" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Top" Height="26.102" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="2" BorderBrush="Black" FontFamily="Verdana" FontSize="18.667"/>
-        </Grid>
-        <Grid Height="20" VerticalAlignment="Top" Grid.ColumnSpan="5" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Menu x:Name="menu" Height="20" Margin="0" Style="{DynamicResource SimpleMenu}" VerticalAlignment="Top" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-                <MenuItem x:Name="ArquivoMenu" Header="Arquivo" Margin="0" Style="{DynamicResource SimpleMenuItem}" Height="20" VerticalAlignment="Top" Width="80" Background="#FFDACACA" HorizontalAlignment="Left">
-                    <MenuItem Header="Abrir..." Style="{DynamicResource SimpleMenuItem}"/>
-                    <MenuItem Header="Salvar" Style="{DynamicResource SimpleMenuItem}"/>
-                    <MenuItem Header="Salvar Como..." Style="{DynamicResource SimpleMenuItem}"/>
-                    <Separator Height="5" Margin="0" Style="{DynamicResource SimpleSeparator}"/>
-                    <MenuItem Header="Fechar" Style="{DynamicResource SimpleMenuItem}"/>
-                </MenuItem>
-                <MenuItem x:Name="EditarMenu" Header="Editar" Margin="0" Style="{DynamicResource SimpleMenuItem}" Height="20" VerticalAlignment="Top" Width="80" Background="#FFDACACA">
-                    <MenuItem Header="Desfazer" Style="{DynamicResource SimpleMenuItem}"/>
-                    <MenuItem Header="Refazer" Style="{DynamicResource SimpleMenuItem}"/>
-                    <MenuItem Header="Copiar" Style="{DynamicResource SimpleMenuItem}"/>
-                    <MenuItem Header="Colar" Style="{DynamicResource SimpleMenuItem}"/>
-                    <Separator Height="5" Margin="0" Style="{DynamicResource SimpleSeparator}"/>
-                    <MenuItem Header="dummy" Style="{DynamicResource SimpleMenuItem}"/>
-                </MenuItem>
-                <MenuItem x:Name="VisualizarMenu" Header="Visualizar" Margin="0" Style="{DynamicResource SimpleMenuItem}" Height="20" VerticalAlignment="Top" Width="90" Background="#FFDACACA">
-                    <MenuItem Header="Atualizar" Style="{DynamicResource SimpleMenuItem}"/>
-                    <Separator Height="5" Margin="0" Style="{DynamicResource SimpleSeparator}"/>
-                    <MenuItem Header="Ver em/Exportar para pdf..." Style="{DynamicResource SimpleMenuItem}"/>
-                    <MenuItem Header="Ver/Exportar árvore em pdf..." Style="{DynamicResource SimpleMenuItem}"/>
-                </MenuItem>
-            </Menu>
-        </Grid>
-        <Grid x:Name="EnunSec" Grid.Column="3" Grid.Row="2" Margin="0,30,0,-111" d:LayoutOverrides="LeftMargin, RightMargin">
+        <Menu x:Name="menu" Style="{DynamicResource SimpleMenu}" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" MinHeight="20" Background="#FF0F0D0D" Foreground="#FFE0DFDF" BorderThickness="1,0,1,1" BorderBrush="#FFDEDEDE">
+            <MenuItem x:Name="ArquivoMenu" Header="Arquivo" Margin="0" Style="{DynamicResource SimpleMenuItem}" Height="20" VerticalAlignment="Top" Background="#FF0F0D0D" HorizontalAlignment="Left" Foreground="#FFDEDEDE" BorderThickness="1,0,1,1" BorderBrush="#FFDEDEDE">
+                <MenuItem Header="Abrir..." Style="{DynamicResource SimpleMenuItem}"/>
+                <MenuItem Header="Salvar" Style="{DynamicResource SimpleMenuItem}"/>
+                <MenuItem Header="Salvar Como..." Style="{DynamicResource SimpleMenuItem}"/>
+                <Separator Height="5" Margin="0" Style="{DynamicResource SimpleSeparator}"/>
+                <MenuItem Header="Fechar" Style="{DynamicResource SimpleMenuItem}"/>
+            </MenuItem>
+            <MenuItem x:Name="EditarMenu" Header="Editar" Margin="0" Style="{DynamicResource SimpleMenuItem}" Height="20" VerticalAlignment="Top" Background="#FF0F0D0D" Foreground="#FFDEDEDE" BorderThickness="0,0,1,1" BorderBrush="#FFDEDEDE">
+                <MenuItem Header="Desfazer" Style="{DynamicResource SimpleMenuItem}"/>
+                <MenuItem Header="Refazer" Style="{DynamicResource SimpleMenuItem}"/>
+                <MenuItem Header="Copiar" Style="{DynamicResource SimpleMenuItem}"/>
+                <MenuItem Header="Colar" Style="{DynamicResource SimpleMenuItem}"/>
+                <Separator Height="5" Margin="0" Style="{DynamicResource SimpleSeparator}"/>
+                <MenuItem Header="dummy" Style="{DynamicResource SimpleMenuItem}"/>
+            </MenuItem>
+            <MenuItem x:Name="VisualizarMenu" Header="Visualizar" Margin="0" Style="{DynamicResource SimpleMenuItem}" Height="20" VerticalAlignment="Top" Background="#FF0F0D0D" Foreground="#FFDEDEDE" BorderThickness="0,0,1,1" BorderBrush="#FFDEDEDE">
+                <MenuItem Header="Atualizar" Style="{DynamicResource SimpleMenuItem}"/>
+                <Separator Height="5" Margin="0" Style="{DynamicResource SimpleSeparator}"/>
+                <MenuItem Header="Ver em/Exportar para pdf..." Style="{DynamicResource SimpleMenuItem}"/>
+                <MenuItem Header="Ver/Exportar árvore em pdf..." Style="{DynamicResource SimpleMenuItem}"/>
+            </MenuItem>
+        </Menu>
+        <TabControl x:Name="tabControl" Style="{DynamicResource SimpleTabControl}" Grid.Row="1" BorderBrush="#FFA6A6A6" Background="#FF0F0D0D">
+            <TabItem Header="Avaliações" Style="{DynamicResource SimpleTabItem}" Margin="0,0,-7.6,0">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <!-- === Enunciado === -->
+            <TabItem Header="Enunciado" Style="{DynamicResource SimpleTabItem}" Margin="5.58,0,-10.613,0" d:LayoutOverrides="HorizontalAlignment">
+                <Grid x:Name="EnunConteudo" Background="#FF0F0D0D" Margin="-4.333,-5,-4.405,-3.944">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="159*"/>
+                        <ColumnDefinition Width="70*"/>
+                        <ColumnDefinition Width="490*"/>
+                        <ColumnDefinition Width="240*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="92*"/>
+                        <RowDefinition Height="70*"/>
+                        <RowDefinition Height="70*"/>
+                        <RowDefinition Height="245*"/>
+                    </Grid.RowDefinitions>
+                    <!-- Lista de Questões -->
+                    <Grid x:Name="QuestaoListaEnun" Margin="10,43.32,19.643,10" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Grid.RowSpan="4">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="6*"/>
+                            <RowDefinition Height="83*"/>
+                        </Grid.RowDefinitions>
+                        <ListBox x:Name="listBox" Margin="0,0,0,2.553" Style="{DynamicResource SimpleListBox}" Background="#FF3A3A3A" BorderThickness="2" Grid.Row="1">
+                            <ListBoxItem Content="Nova Questão" Style="{DynamicResource SimpleListBoxItem}" Foreground="#FFE6E6E6"/>
+                        </ListBox>
+                        <Label x:Name="label" Content="Questões&#xA;" Margin="10,4.898,10,-1.261" Style="{DynamicResource SimpleLabel}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="2" BorderBrush="#FF888888" FontFamily="Verdana" FontSize="18.667" Background="#FF0F0D0D" Foreground="#FFDEDEDE"/>
+                    </Grid>
+                    <!-- Btn Nova Questão -->
+                    <Button x:Name="NovaQuestao" Content="Nova Questão" Style="{DynamicResource SimpleButton}" Margin="10,11.992,19.643,0" Height="25.073" VerticalAlignment="Top" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <!-- Título -->
+                    <Label x:Name="lblTitulo" Content="Título" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="60" Foreground="#FFDADADA" Grid.Column="1" Margin="0,27.369,-0.01,17.582" d:LayoutOverrides="LeftMargin, RightMargin" Grid.Row="2" />
+                    <TextBox x:Name="TituloEditar" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" Text="Texto do título da questão" Visibility="Visible" Grid.Column="2" Margin="-0.724,30,239.556,20.377" d:LayoutOverrides="LeftMargin, RightMargin" Grid.Row="2"/>
+                    <!-- Tipo -->
+                    <Label x:Name="lblTipo" Content="Tipo" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="40"  HorizontalAlignment="Left" Foreground="#FFDADADA" Margin="165.364,12.976,0,0" Grid.Column="2" VerticalAlignment="Top" Height="25" Width="40" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
+                    <ComboBox x:Name="TipoEnunCmbBox"  Margin="210.367,15.785,105,0" Style="{DynamicResource SimpleComboBox}" Height="19.383" VerticalAlignment="Top" Grid.Column="2" d:LayoutOverrides="VerticalAlignment, LeftMargin, RightMargin, TopMargin, BottomMargin">
+                        <ComboBoxItem x:Name="TipoMult" Content="Múltipla Escolha" Style="{DynamicResource SimpleComboBoxItem}" IsSelected="True"/>
+                        <ComboBoxItem x:Name="TipoOrd" Content="Ordenação" Style="{DynamicResource SimpleComboBoxItem}"/>
+                        <ComboBoxItem x:Name="TipoPsico" Content="Psicogênese" Style="{DynamicResource SimpleComboBoxItem}"/>
+                        <ComboBoxItem x:Name="TipoMemoria" Content="Memória de Trabalho" Style="{DynamicResource SimpleComboBoxItem}"/>
+                    </ComboBox>
+                    <!-- Competência -->
+                    <Label x:Name="lblCompet" Content="Competência" Height="25" VerticalAlignment="Top" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="40"  Foreground="#FFDADADA" HorizontalAlignment="Right" Width="95" Grid.Column="2" Margin="0,50.116,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
+                    <ComboBox x:Name="CompetCmbBox" Margin="0,0,10,18.718" Style="{DynamicResource SimpleComboBox}" Grid.Column="3" Height="20.36" VerticalAlignment="Bottom" d:LayoutOverrides="LeftMargin, RightMargin">
+                        <ComboBoxItem x:Name="CompetLastSel" Content="Última Selecionada" Style="{DynamicResource SimpleComboBoxItem}" IsSelected="True"/>
+                    </ComboBox>
+                    <!-- Cor Enunciado -->
+                    <Rectangle x:Name="CorBg"  Fill="#FF2FCD00" Stroke="Black" Height="29.999" VerticalAlignment="Top"  Margin="0,9.529,10,0" Grid.Column="3" d:LayoutOverrides="VerticalAlignment, LeftMargin, RightMargin, TopMargin, BottomMargin" HorizontalAlignment="Right" Width="109.523"/>
+                    <ComboBox x:Name="CorCmbBox" Margin="0,14.877,19.523,0"  Height="19.303" VerticalAlignment="Top" Grid.Column="3" d:LayoutOverrides="VerticalAlignment, LeftMargin, RightMargin, TopMargin, BottomMargin" Background="Transparent" HorizontalAlignment="Right" Width="90">
+                        <ComboBoxItem x:Name="CorVerm" Content="Vermelho" Style="{DynamicResource SimpleComboBoxItem}" Width="Auto" IsSelected="True" HorizontalAlignment="Left"/>
+                        <ComboBoxItem x:Name="CorAmar" Content="Amarelo" Style="{DynamicResource SimpleComboBoxItem}" HorizontalAlignment="Left"/>
+                        <ComboBoxItem x:Name="CorVerd" Content="Verde" Style="{DynamicResource SimpleComboBoxItem}" HorizontalAlignment="Left"/>
+                        <ComboBoxItem x:Name="CorAzul" Content="Azul" Style="{DynamicResource SimpleComboBoxItem}" HorizontalAlignment="Left"/>
+                    </ComboBox>
+                    <!-- Dica -->
+                    <CheckBox x:Name="checkBox" Content="Dica"  HorizontalAlignment="Right" Margin="0,15.785,11.054,0"  Style="{DynamicResource SimpleCheckBox}" Width="12.922" VerticalAlignment="Top" Height="17.487" BorderThickness="2" ClipToBounds="True" Foreground="#FFDADADA" FontSize="16" Grid.Column="2" d:LayoutOverrides="HorizontalAlignment, LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <Label x:Name="lblCor" Content="Cor" Margin="88.887,12.89,0,0" Foreground="#FFDADADA" RenderTransformOrigin="-0.314,0.488" Grid.Column="3" VerticalAlignment="Top" HorizontalAlignment="Left" Height="23.277" Width="26.543" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <!-- Texto Enunciado -->
+                    <Label x:Name="lblTxtEnun" Content="Texto" Height="19.5"  Style="{DynamicResource SimpleLabel}" VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" Background="Black" Foreground="#FFDADADA" Grid.Column="1" Margin="16.543,0.5,16.133,0" Grid.Row="3" d:LayoutOverrides="VerticalAlignment, LeftMargin, RightMargin, TopMargin, BottomMargin" />
+                    <TextBox x:Name="TxtEnunEditar" Style="{DynamicResource SimpleTextBox}"   TextWrapping="Wrap" Text="Texto do enunciado" Margin="-0.528,0.5,-0.197,104.418" Grid.Column="2" Grid.Row="3" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <!-- Imagem Enunciado -->
+                    <TextBox x:Name="ImgEnunEditar"  Style="{DynamicResource SimpleTextBox}" Margin="60.197,0,59.803,62.639"  TextWrapping="Wrap" Text="Caminho da Imagem" Grid.Column="2" Height="21.984" VerticalAlignment="Bottom" Grid.Row="3" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <Button x:Name="ImgEnunBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" Margin="0.197,0,0,62.639"   HorizontalAlignment="Left" Width="60" Grid.Column="2" Height="22.198" VerticalAlignment="Bottom" Grid.Row="3" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <Label x:Name="lblImgEnun" Content="Imagem"  Style="{DynamicResource SimpleLabel}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="#FFDADADA" Grid.Column="1" Height="22.485" VerticalAlignment="Bottom" RenderTransformOrigin="1.252,-0.783" Margin="10.686,0,9.44,61.932" d:LayoutOverrides="Width, TopMargin, BottomMargin" Grid.Row="3" />
+                    <Button x:Name="ImgEnunDel" Content="Apagar" Style="{DynamicResource SimpleButton}"  HorizontalAlignment="Right" Margin="0,0,-0.197,62.551"  Width="60" Background="#FFD4D0C8" ClipToBounds="True" Grid.Column="2" Height="21.866" VerticalAlignment="Bottom" Grid.Row="3" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <!-- Audio Enunciado -->
+                    <Label x:Name="lblAudioEnun" Content="Áudio"  Style="{DynamicResource SimpleLabel}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="16.53,0,16.15,13.676"  Background="Black" Foreground="#FFDADADA" Grid.Column="1" Height="21.989" VerticalAlignment="Bottom" d:LayoutOverrides="Width, TopMargin, BottomMargin" Grid.Row="3" />
+                    <Button x:Name="AudioEnunBtn" Content="Localizar" Style="{DynamicResource SimpleButton}"   HorizontalAlignment="Left" Width="60" Grid.Column="2" Height="21.984" Margin="0.197,0,0,14.469" VerticalAlignment="Bottom" Grid.Row="3" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <TextBox x:Name="AudioEnunEditar_Copy"  Style="{DynamicResource SimpleTextBox}" Margin="60.197,0,59.803,14.614"  TextWrapping="Wrap" Text="Caminho do Áudio" Grid.Column="2" Height="21.985" VerticalAlignment="Bottom" Grid.Row="3" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <Button x:Name="AudioEnunDel" Content="Apagar" Style="{DynamicResource SimpleButton}"  HorizontalAlignment="Right" Margin="0,0,-0.197,14.615"  Width="60" Grid.Column="2" Height="21.984" VerticalAlignment="Bottom" Grid.Row="3" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <!-- Tentativas -->
+                    <Label x:Name="lblTentativas" Content="Tentativas"  Style="{DynamicResource SimpleLabel}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="58.973,37.065,60,0" Background="Black" Foreground="#FFDADADA" Height="0.024" VerticalAlignment="Top" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
+                    <ComboBox x:Name="TentativasCmbBox"  HorizontalAlignment="Right" Margin="0,37.065,0,0"  Style="{DynamicResource SimpleComboBox}" Width="60" Height="0.024" VerticalAlignment="Top" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
+                        <ComboBoxItem x:Name="Tentativas1" Content="1" Style="{DynamicResource SimpleComboBoxItem}" Width="20" IsSelected="True"/>
+                        <ComboBoxItem x:Name="Tentativas2" Content="2" Style="{DynamicResource SimpleComboBoxItem}" Width="20"/>
+                        <ComboBoxItem x:Name="Tentativas3" Content="3" Style="{DynamicResource SimpleComboBoxItem}" Width="20"/>
+                        <ComboBoxItem x:Name="Tentativas4" Content="4" Style="{DynamicResource SimpleComboBoxItem}" Width="20"/>
+                        <ComboBoxItem x:Name="Tentativas5" Content="5" Style="{DynamicResource SimpleComboBoxItem}" Width="20"/>
+                    </ComboBox>
+                    <!-- Número de Identificação (Antiga Ordem da Questão)-->
+                    <Label x:Name="lblNI" Content="NI" Height="25" VerticalAlignment="Top" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="60" Foreground="#FFDADADA" Grid.Column="1" Margin="0,12.028,-0.01,0" d:LayoutOverrides="VerticalAlignment, LeftMargin, RightMargin, TopMargin, BottomMargin" />
+                    <TextBox x:Name="NIEditar" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" Text="Número de Identificação" Visibility="Visible" Height="19.738" VerticalAlignment="Top" Grid.Column="2" Margin="-0.724,14.66,0,0" HorizontalAlignment="Left" Width="135.367" d:LayoutOverrides="VerticalAlignment, LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <!-- Eixo -->
+                    <Label x:Name="lblEixo" Content="Eixo" Height="25" VerticalAlignment="Top" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="40"  Foreground="#FFDADADA" HorizontalAlignment="Left" Grid.Column="2" Margin="165.363,50.116,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Width="40" />
+                    <ComboBox x:Name="lblEixoCmbBox" Margin="210.367,0,105,18.718" Style="{DynamicResource SimpleComboBox}" Grid.Column="2" Height="20.36" VerticalAlignment="Bottom" d:LayoutOverrides="LeftMargin, RightMargin">
+                        <ComboBoxItem x:Name="CompetLastSel1" Content="Última Selecionada" Style="{DynamicResource SimpleComboBoxItem}" IsSelected="True"/>
+                    </ComboBox>
+                    <!-- Dica -->
+                    <Label x:Name="lblDica" Content="Dica" Margin="0,12.89,28.979,0" Foreground="#FFDADADA" RenderTransformOrigin="-0.314,0.488" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right" Height="23.277" Width="30.824" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <!-- Disciplina -->
+                    <Label x:Name="lblDisciEnun" Content="Disciplina" Height="25" VerticalAlignment="Top" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="40"  Foreground="#FFDADADA" Grid.Column="1" Margin="4.694,50.116,4.802,0" d:LayoutOverrides="Width, TopMargin, BottomMargin" />
+                    <ComboBox x:Name="DisciCmbBox" Margin="0.197,0,0,18.718" Style="{DynamicResource SimpleComboBox}" Grid.Column="2" Height="20.36" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="134.446" d:LayoutOverrides="LeftMargin, RightMargin">
+                        <ComboBoxItem x:Name="DisciTreino" Content="Treino" Style="{DynamicResource SimpleComboBoxItem}" IsSelected="True"/>
+                        <ComboBoxItem x:Name="DisciLP" Content="Língua Portuguesa" Style="{DynamicResource SimpleComboBoxItem}"/>
+                        <ComboBoxItem x:Name="DisciMat" Content="Matemática" Style="{DynamicResource SimpleComboBoxItem}"/>
+                    </ComboBox>
+                    <!-- Feedback Enunciado -->
+                    <Label x:Name="lblAfeedbackEnun" Content="Feedback"  Style="{DynamicResource SimpleLabel}" Margin="0,30.628,0,19.372" Background="Black" Foreground="#FFDADADA" Grid.Column="1"  HorizontalContentAlignment="Center" Grid.Row="1"/>
+                    <Button x:Name="AfeedbackPosEnunBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" Margin="73.557,3.074,0,0" Grid.Column="2" HorizontalAlignment="Left" Width="61.086" Height="25" VerticalAlignment="Top" Grid.Row="1"/>
+                    <TextBox x:Name="AfeedbackPosEnunEditar" Style="{DynamicResource SimpleTextBox}" Margin="134.643,3.074,185.144,0" TextWrapping="Wrap" Grid.Column="2" Height="25" VerticalAlignment="Top" Grid.Row="1"/>
+                    <Button x:Name="AfeedbackPosEnunDel" Content="Apagar" Style="{DynamicResource SimpleButton}"  Margin="0,3.074,126.198,0" MinWidth="60" Grid.Column="2" HorizontalAlignment="Right" Width="60" Height="25" VerticalAlignment="Top" Grid.Row="1"/>
+                    <Button x:Name="AfeedbackNegEnunBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" Margin="73.557,0,0,-0.209" Height="25" VerticalAlignment="Bottom" Grid.Column="2" HorizontalAlignment="Left" Width="61.086" Grid.Row="1"/>
+                    <TextBox x:Name="AfeedbackNegEnunEditar" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" Height="25" VerticalAlignment="Bottom" Grid.Column="2" Margin="133.515,0,186.272,-0.209" Grid.Row="1"/>
+                    <Button x:Name="AfeedbackNegEnunDel" Content="Apagar" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="0,0,126.198,-0.209" Height="25" VerticalAlignment="Bottom" Grid.Column="2" HorizontalAlignment="Right" Width="60" Grid.Row="1"/>
+                    <!-- Saltos Enunciado -->
+                    <Label x:Name="lblSaltoEnun" Content="Saltos"  Style="{DynamicResource SimpleLabel}" Margin="0,30.628,4.081,19.372" Background="Black" Foreground="#FFDADADA"  HorizontalContentAlignment="Center" Grid.Column="2" HorizontalAlignment="Right" Width="50.443" Grid.Row="1"/>
+                    <ComboBox x:Name="SaltoPosEnunCmbBox" Margin="70.444,3.074,99.52,0" Style="{DynamicResource SimpleComboBox}" Grid.Column="3" Height="25" VerticalAlignment="Top" Grid.Row="1">
+                        <ComboBoxItem x:Name="SaltoPosEnunEx_1002" Content="1002" Style="{DynamicResource SimpleComboBoxItem}" Width="20" IsSelected="True"/>
+                        <ComboBoxItem x:Name="SaltoPosEnunEx_1003" Content="1003" Style="{DynamicResource SimpleComboBoxItem}" Width="20" IsSelected="True"/>
+                    </ComboBox>
+                    <TextBox x:Name="SaltoPosEnunEditar" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" Margin="70.443,3.074,119.52,0" Grid.Column="3" Height="25" VerticalAlignment="Top" Grid.Row="1"/>
+                    <Button x:Name="SaltoPosEnunDel" Content="Apagar" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="0,3.074,39.52,0" Grid.Column="3" HorizontalAlignment="Right" Width="60" Height="25" VerticalAlignment="Top" Grid.Row="1"/>
+                    <ComboBox x:Name="SaltoNegCmbBox" Margin="70.444,0,99.52,-0.209" Style="{DynamicResource SimpleComboBox}" Height="25" VerticalAlignment="Bottom" Grid.Column="3" Grid.Row="1">
+                        <ComboBoxItem x:Name="SaltoNegEnunEx_1002" Content="1002" Style="{DynamicResource SimpleComboBoxItem}" Width="20" IsSelected="True"/>
+                        <ComboBoxItem x:Name="SaltoNegEnunEx_1003" Content="1003" Style="{DynamicResource SimpleComboBoxItem}" Width="20" IsSelected="True"/>
+                    </ComboBox>
+                    <TextBox x:Name="SaltoNegEnunEditar" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" Margin="70.443,0,119.52,-0.209" Grid.Column="3" Height="25" VerticalAlignment="Bottom" Grid.Row="1"/>
+                    <Button x:Name="SaltoNegEnunDel" Content="Apagar" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Grid.Column="3" Height="25" VerticalAlignment="Bottom" Margin="0,0,39.52,-0.209" HorizontalAlignment="Right" Width="60" Grid.Row="1"/>
+                    <TextBlock x:Name="textBlock" Grid.Column="3" Margin="20.443,0.5,19.523,14.615" Grid.Row="3" TextWrapping="Wrap" Text="Campo de ajuda." Background="#FF3A3A3A" Foreground="#FFDEDEDE"/>
+                </Grid>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="81*"/>
-                <ColumnDefinition Width="271*"/>
-                <ColumnDefinition Width="127*"/>
-                <ColumnDefinition Width="280*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40*"/>
-                <RowDefinition Height="80*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="19*"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Rectangle x:Name="CorBg" Grid.Column="3" Fill="#FF2FCD00" HorizontalAlignment="Right" Stroke="Black" Width="80" Height="39.779" VerticalAlignment="Top" Grid.Row="1" Margin="0,2.031,0,0"/>
-            <Label x:Name="lblCor" Content="Cor" Margin="0,9.923,89.567,0" Grid.Column="3" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30.433" Grid.Row="1" Background="#FF0F0D0D" Foreground="#FFDADADA" RenderTransformOrigin="-0.314,0.488"/>
-            <TextBox x:Name="ImgEnunEditar" Grid.Column="1" Style="{DynamicResource SimpleTextBox}" Margin="60,-0.33,0,0.33" Grid.Row="3" TextWrapping="Wrap" Text="Caminho da Imagem"/>
-            <Button x:Name="ImgEnunBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" Margin="0,-0.33,0,0.118" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Width="60"/>
-            <TextBox x:Name="TituloEditar" Grid.Column="1" HorizontalAlignment="Left" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" Text="Texto do título" Width="200" Visibility="Visible" Height="19.5" VerticalAlignment="Top"/>
-            <TextBlock x:Name="TituloAuto" Margin="0,5,0,0" TextWrapping="Wrap" TextAlignment="Left" Grid.Column="1" MouseLeftButtonUp="TituloAuto_MouseLeftButtonUp" Height="14.5" VerticalAlignment="Top" Visibility="Hidden"><Run Text="1001 - P1ESP1A - AP_A.a - Q1"/><Run Text=" (Padrão)" /></TextBlock>
-            <Label x:Name="lblTitulo" Content="Título" Height="25" VerticalAlignment="Top" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="60" Foreground="#FFDADADA" />
-            <TextBox x:Name="TxtEnunEditar" Style="{DynamicResource SimpleTextBox}" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Text="Texto do enunciado" Grid.ColumnSpan="3" Margin="0,0,140,0"/>
-            <Label x:Name="lblTxtEnun" Content="Texto" Height="19.5" Grid.Row="1" Style="{DynamicResource SimpleLabel}" VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" Background="Black" Foreground="#FFDADADA" />
-            <Label x:Name="lblImgEnun" Content="Imagem" Margin="0,-1.118,0,0.618" Grid.Row="3" Style="{DynamicResource SimpleLabel}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="#FFDADADA" />
-
-            <Label x:Name="lblTentativas" Content="Tentativas" Grid.Row="1" Style="{DynamicResource SimpleLabel}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" HorizontalAlignment="Right" Margin="0,46.81,60,29.39" Width="60" Background="Black" Foreground="#FFDADADA" />
-            <ComboBox x:Name="TentativasCmbBox" Grid.Column="3" HorizontalAlignment="Right" Margin="0,46.81,0,30.008" Grid.Row="1" Style="{DynamicResource SimpleComboBox}" Width="60">
-                <ComboBoxItem x:Name="Tentativas1" Content="1" Style="{DynamicResource SimpleComboBoxItem}" Width="20" IsSelected="True"/>
-                <ComboBoxItem x:Name="Tentativas2" Content="2" Style="{DynamicResource SimpleComboBoxItem}" Width="20"/>
-                <ComboBoxItem x:Name="Tentativas3" Content="3" Style="{DynamicResource SimpleComboBoxItem}" Width="20"/>
-                <ComboBoxItem x:Name="Tentativas4" Content="4" Style="{DynamicResource SimpleComboBoxItem}" Width="20"/>
-                <ComboBoxItem x:Name="Tentativas5" Content="5" Style="{DynamicResource SimpleComboBoxItem}" Width="20"/>
-            </ComboBox>
-            <Label x:Name="lblTipoEnun" Content="Tipo" Height="25" VerticalAlignment="Top" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="40" Grid.Column="1" HorizontalAlignment="Right" Width="20" Foreground="#FFDADADA" Margin="0,0,12.856,0" />
-            <ComboBox x:Name="TipoEnunCmbBox" Grid.Column="2" Margin="-12.857,0,20,0" Style="{DynamicResource SimpleComboBox}" Height="19.382" VerticalAlignment="Top">
-                <ComboBoxItem x:Name="TipoMult" Content="Múltipla Escolha" Style="{DynamicResource SimpleComboBoxItem}" IsSelected="True"/>
-                <ComboBoxItem x:Name="TipoOrd" Content="Ordenação" Style="{DynamicResource SimpleComboBoxItem}"/>
-                <ComboBoxItem x:Name="TipoPsico" Content="Psicogênese" Style="{DynamicResource SimpleComboBoxItem}"/>
-                <ComboBoxItem x:Name="TipoMemoria" Content="Memória de Trabalho" Style="{DynamicResource SimpleComboBoxItem}"/>
-            </ComboBox>
-            <TextBox x:Name="AudioEnunEditar_Copy" Grid.Column="1" Style="{DynamicResource SimpleTextBox}" Margin="60,0,0,0" Grid.Row="5" TextWrapping="Wrap" Text="Caminho do Áudio"/>
-            <Button x:Name="AudioEnunBtn_Copy" Content="Localizar" Style="{DynamicResource SimpleButton}" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Width="60"/>
-            <Label x:Name="lblAudioEnun_Copy" Content="Áudio" Grid.Row="5" Style="{DynamicResource SimpleLabel}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,-0.005,0,0" Grid.RowSpan="2" Background="Black" Foreground="#FFDADADA" />
-            <Button x:Name="ImgEnunDel_Copy" Content="Apagar" Style="{DynamicResource SimpleButton}" Grid.Column="2" HorizontalAlignment="Left" Margin="0,0.868,0,-0.75" Grid.Row="3" Width="60" Background="#FFD4D0C8" ClipToBounds="True"/>
-            <Button x:Name="AudioEnunDel_Copy" Content="Apagar" Style="{DynamicResource SimpleButton}" Grid.Column="2" HorizontalAlignment="Left" Margin="0,-0.005,0,0.005" Grid.Row="5" Width="60"/>
-            <ComboBox x:Name="TentativasCmbBox_Copy2" Margin="95,-0.729,0.834,0" Style="{DynamicResource SimpleComboBox}" Grid.Column="3" Height="20.111" VerticalAlignment="Top">
-
-                <ComboBoxItem x:Name="Tentativas16" Content="Última Selecionada" Style="{DynamicResource SimpleComboBoxItem}" IsSelected="True"/>
-            </ComboBox>
-            <TextBox x:Name="SaltoPosQuestaoEditar_Copy" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" Margin="95,-0.729,20.834,0" Grid.Column="3" Height="20.111" VerticalAlignment="Top"/>
-            <Label x:Name="lblTipoEnun_Copy" Content="Competência" Height="25" VerticalAlignment="Top" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="40" Grid.Column="3" Foreground="#FFDADADA" HorizontalAlignment="Left" Width="95" />
-            <CheckBox x:Name="checkBox" Content="Dica" Grid.Column="3" HorizontalAlignment="Right" Margin="0,0,55,0" Grid.Row="1" Style="{DynamicResource SimpleCheckBox}" Width="60" VerticalAlignment="Bottom" Height="17.488" BorderThickness="2" ClipToBounds="True" Foreground="#FFDADADA" FontSize="16"/>
-            <ComboBox x:Name="TentativasCmbBox_Copy3" Grid.Column="3" HorizontalAlignment="Right" Margin="0,13.896,10,0" Grid.Row="1" Style="{DynamicResource SimpleComboBox}" Width="60" Height="19.304" VerticalAlignment="Top">
-                <ComboBoxItem x:Name="Tentativas17" Content="Vermelho" Style="{DynamicResource SimpleComboBoxItem}" Width="46" IsSelected="True" HorizontalAlignment="Left"/>
-                <ComboBoxItem x:Name="Tentativas18" Content="Amarelo" Style="{DynamicResource SimpleComboBoxItem}" HorizontalAlignment="Left"/>
-                <ComboBoxItem x:Name="Tentativas19" Content="Verde" Style="{DynamicResource SimpleComboBoxItem}" HorizontalAlignment="Left"/>
-                <ComboBoxItem x:Name="Tentativas20" Content="Azul" Style="{DynamicResource SimpleComboBoxItem}" HorizontalAlignment="Left"/>
-            </ComboBox>
-
-        </Grid>
-        <Button x:Name="NovaQuestao" Content="Nova Questão" Style="{DynamicResource SimpleButton}" Margin="0,8.398,0,-8.898" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" Width="100" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-        <TabPanel x:Name="tabPanel" Margin="0,0,0,0.5" Grid.ColumnSpan="5" Height="19.5" VerticalAlignment="Bottom" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-            <TabControl x:Name="tabControl" Style="{DynamicResource SimpleTabControl}" Margin="0,0,-54.5,0">
-                <TabItem Header="Avaliações" Style="{DynamicResource SimpleTabItem}" Margin="0,0,-7.6,0">
-                    <Grid Background="#FFE5E5E5"/>
-                </TabItem>
-                <TabItem Header="Enunciado" Style="{DynamicResource SimpleTabItem}" Margin="5.58,0,-10.613,0" d:LayoutOverrides="HorizontalAlignment">
-                    <Grid Background="#FFE5E5E5"/>
-                </TabItem>
-                <TabItem Header="Alternativas" Style="{DynamicResource SimpleTabItem}" Margin="10.612,0,-16.807,0">
-                    <Grid Background="#FFE5E5E5"/>
-                </TabItem>
-            </TabControl>
-        </TabPanel>
-        <Path Grid.ColumnSpan="5" Data="M0,39.5 L760,39.5" Fill="#FFF4F4F5" Height="1" Margin="0,-0.5,-1,0" Stretch="Fill" Stroke="Black" VerticalAlignment="Top" Grid.Row="1" d:LayoutOverrides="VerticalAlignment, LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-        <Grid x:Name="SobreeSec" Grid.Column="3" Margin="0,116,0,20" Grid.Row="3" MinWidth="60" d:LayoutOverrides="LeftMargin, RightMargin">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="9*"/>
-                <ColumnDefinition Width="4*"/>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="9*"/>
-                <ColumnDefinition Width="3*"/>
-            </Grid.ColumnDefinitions>
-            <Label x:Name="lblSobree" Content="Sobreescrever" Grid.Column="2" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Top" Height="20" FontSize="16" Margin="-52.143,-5,-25.714,0" Background="Black" Foreground="#FFDADADA" d:LayoutOverrides="VerticalAlignment"/>
-            <TextBox x:Name="AudioEnunEditar_Copy1" Style="{DynamicResource SimpleTextBox}" Margin="60.121,0,0,15.387" TextWrapping="Wrap" Text="Caminho do Áudio" HorizontalAlignment="Left" Height="17.144" VerticalAlignment="Bottom" Width="0" d:LayoutOverrides="LeftMargin, RightMargin"/>
-            <Button x:Name="SaltoPosQuestaoReset1" Content="Padrão" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="0,0,0,-0.5" HorizontalAlignment="Left" Width="60" d:LayoutOverrides="LeftMargin, RightMargin" Height="25" VerticalAlignment="Bottom"/>
-            <ComboBox x:Name="TentativasCmbBox_Copy" Margin="80.121,45,0,49.862" Style="{DynamicResource SimpleComboBox}" d:LayoutOverrides="LeftMargin, RightMargin">
-                <ComboBoxItem x:Name="Tentativas6" Content="1" Style="{DynamicResource SimpleComboBoxItem}" Width="20" IsSelected="True"/>
-                <ComboBoxItem x:Name="Tentativas7" Content="2" Style="{DynamicResource SimpleComboBoxItem}" Width="20"/>
-                <ComboBoxItem x:Name="Tentativas8" Content="3" Style="{DynamicResource SimpleComboBoxItem}" Width="20"/>
-                <ComboBoxItem x:Name="Tentativas9" Content="4" Style="{DynamicResource SimpleComboBoxItem}" Width="20"/>
-                <ComboBoxItem x:Name="Tentativas10" Content="5" Style="{DynamicResource SimpleComboBoxItem}" Width="20"/>
-            </ComboBox>
-            <ComboBox x:Name="TentativasCmbBox_Copy1" Margin="80.121,0,0,0" Style="{DynamicResource SimpleComboBox}" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Height="25" VerticalAlignment="Bottom">
-                <ComboBoxItem x:Name="Tentativas11" Content="1" Style="{DynamicResource SimpleComboBoxItem}" Width="20" IsSelected="True"/>
-                <ComboBoxItem x:Name="Tentativas12" Content="2" Style="{DynamicResource SimpleComboBoxItem}" Width="20"/>
-                <ComboBoxItem x:Name="Tentativas13" Content="3" Style="{DynamicResource SimpleComboBoxItem}" Width="20"/>
-                <ComboBoxItem x:Name="Tentativas14" Content="4" Style="{DynamicResource SimpleComboBoxItem}" Width="20"/>
-                <ComboBoxItem x:Name="Tentativas15" Content="5" Style="{DynamicResource SimpleComboBoxItem}" Width="20"/>
-            </ComboBox>
-            <Button x:Name="AfeedbackPosQuestaoBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" Margin="0,45.5,0,49.5" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin"/>
-            <Button x:Name="AfeedbackNegQuestaoBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" Margin="0,0,0,-0.5" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin" Height="25" VerticalAlignment="Bottom"/>
-            <Button x:Name="AfeedbackNegQuestaoDel1" Content="Apagar" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="0,0,0,-0.5" Grid.Column="4" d:LayoutOverrides="LeftMargin, RightMargin" Height="25" VerticalAlignment="Bottom"/>
-            <Button x:Name="AfeedbackPosQuestaoDel" Content="Apagar" Style="{DynamicResource SimpleButton}" Grid.Column="4" Margin="0,45.5,0,49.5" MinWidth="60" d:LayoutOverrides="LeftMargin, RightMargin"/>
-            <TextBox x:Name="SaltoPosQuestaoEditar" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" Margin="60.121,45,20,49.862" d:LayoutOverrides="LeftMargin, RightMargin"/>
-            <TextBox x:Name="SaltoNegQuestaoEditar" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" Margin="60,0,20.121,-0.5" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Height="25.5" VerticalAlignment="Bottom"/>
-            <TextBox x:Name="AfeedbackPosQuestaoEditar" Style="{DynamicResource SimpleTextBox}" Margin="0,45.5,0,49.5" TextWrapping="Wrap" Grid.Column="3" d:LayoutOverrides="LeftMargin, RightMargin"/>
-            <TextBox x:Name="AfeedbackPosQuestaoEditar1" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" Grid.Column="3" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Height="25" VerticalAlignment="Bottom"/>
-            <Label x:Name="lblSobree_Copy" Content="Saltos" Grid.Column="0" Style="{DynamicResource SimpleLabel}" FontSize="16" Margin="0,20,120,0" Background="Black" Foreground="#FFDADADA" d:LayoutOverrides="LeftMargin, RightMargin" Height="20" VerticalAlignment="Top"/>
-            <Label x:Name="lblSobree_Copy1" Content="Feedback" Grid.Column="2" Style="{DynamicResource SimpleLabel}" FontSize="16" Margin="0,20,-62.857,0" Background="Black" Foreground="#FFDADADA" d:LayoutOverrides="LeftMargin, RightMargin" Height="20" VerticalAlignment="Top"/>
-            <Image x:Name="IconPos" Grid.Column="1" Margin="20,25,20,50.569" d:LayoutOverrides="LeftMargin, RightMargin">
-                <Image.OpacityMask>
-                    <ImageBrush/>
-                </Image.OpacityMask>
-            </Image>
-            <Button x:Name="SaltoPosQuestaoReset" Content="Padrão" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="0,45.5,0,49.5" HorizontalAlignment="Left" Width="60" d:LayoutOverrides="LeftMargin, RightMargin"/>
-        </Grid>
+                <!-- //EnunCounteudo -->
+            </TabItem>
+            <TabItem Header="Alternativas" Style="{DynamicResource SimpleTabItem}" Margin="10.612,0,-16.807,0">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
     </Grid>
+    <!--
+        <Label x:Name="lblSobree" Content="Sobreescrever para todas as alternativas"  Style="{DynamicResource SimpleLabel}" VerticalAlignment="Top" Height="20" FontSize="16" Margin="-52.143,-5,-25.714,0" Background="Black" Foreground="#FFDADADA" d:LayoutOverrides="VerticalAlignment"/>
+        <TextBox x:Name="SaltoPosQuestaoEditar_Copy" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" Margin="95,-0.729,20.834,0"  Height="20.111" VerticalAlignment="Top"/>
+        <TextBox x:Name="AudioEnunEditar_Copy1" Style="{DynamicResource SimpleTextBox}" Margin="60.121,0,0,15.387" TextWrapping="Wrap" Text="Caminho do Áudio" HorizontalAlignment="Left" Height="17.144" VerticalAlignment="Bottom" Width="0" d:LayoutOverrides="LeftMargin, RightMargin"/>
+        <Button x:Name="SaltoPosQuestaoReset1" Content="Padrão" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="0,0,0,-0.5" HorizontalAlignment="Left" Width="60" d:LayoutOverrides="LeftMargin, RightMargin" Height="25" VerticalAlignment="Bottom"/>
+        
+        
+        <Label x:Name="lblSalto" Content="Saltos"  Style="{DynamicResource SimpleLabel}" FontSize="16" Margin="0,20,120,0" Background="Black" Foreground="#FFDADADA" d:LayoutOverrides="LeftMargin, RightMargin" Height="20" VerticalAlignment="Top"/>
+        <ComboBox x:Name="SaltoPosCmbBox" Margin="60.121,0,0,0" Style="{DynamicResource SimpleComboBox}" d:LayoutOverrides="TopMargin, BottomMargin" Height="25" VerticalAlignment="Bottom">
+            <ComboBoxItem x:Name="1003" Content="1" Style="{DynamicResource SimpleComboBoxItem}" Width="20" IsSelected="True"/>
+        </ComboBox>
+        <TextBox x:Name="SaltoPosQuestaoEditar" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" Margin="60.121,45,0,49.862" HorizontalAlignment="Left" Width="164.165"/>
+        <Button x:Name="SaltoPosQuestaoDel" Content="Apagar" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="0,45.5,0,49.5" HorizontalAlignment="Left" Width="60" d:LayoutOverrides="LeftMargin, RightMargin"/>
+        <ComboBox x:Name="SaltoNegCmbBox" Margin="60.121,0,0,0" Style="{DynamicResource SimpleComboBox}" d:LayoutOverrides="TopMargin, BottomMargin" Height="25" VerticalAlignment="Bottom">
+            <ComboBoxItem x:Name="1002" Content="1" Style="{DynamicResource SimpleComboBoxItem}" Width="20" IsSelected="True"/>
+        </ComboBox>
+        <TextBox x:Name="SaltoNegQuestaoEditar" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" Margin="60.121,45,0,49.862" HorizontalAlignment="Left" Width="164.165"/>
+        <Button x:Name="SaltoNegQuestaoDel" Content="Apagar" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="0,45.5,0,49.5" HorizontalAlignment="Left" Width="60" d:LayoutOverrides="LeftMargin, RightMargin"/>
+    </Grid> -->
 </Window>
