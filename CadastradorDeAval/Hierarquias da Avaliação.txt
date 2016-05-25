@@ -1,0 +1,57 @@
+##================= HIERARQUIAS ==================##
+
+RESULTADO
+====================================================
+Instituição> Ano> Agrupamento> Período > RESULTADO
+
+Instituição = [NomeEscola, NomeClínica]
+Agrupamento = [TurmaEscola, NomeEspecialista]
+Período = {início de tratamento, final de tratamento}
+
+
+PROVA
+====================================================
+Ano> Semestre => PROVA
+
+
+QUESTÃO
+====================================================
+Disciplina> Eixo> Competência => QUESTÃO
+
+Disciplina = {Matemática, Língua Portuguesa, Aprendizagem}
+4 Eixos para cada Disciplina
+n Competências para cada Eixo
+m Questões para cada Eixo
+
+
+NÍVELdeREFERÊNCIA *
+=======================================================
+Questão ----
+            |=> NÍVELdeREFERÊNCIA
+Prova ------
+
+Questão e Prova como definidos anteriormente.
+* É o nível de referência de um conjunto de questões de uma dada competência, dependendo da prova aplicada.
+  Exemplo:
+  A questão "Q1" da competência "Completar textos verbais" pode estar no nível Azul de uma prova de 1º ano no início de tratamento e
+  também pode estar no nível Amarelo de uma prova de 2ºano no final de tratamento.
+
+
+
+##=== OUTROS TÓPICOS RELEVANTES SOBRE A AVALIAÇÃO ==##
+  
+  
+NÍVELdaCRIANÇA **
+=======================================================
+QuestãoFolha ** -------
+                        |=> NÍVELdaCRIANÇA
+Criança ----------------
+
+Em uma árvore de avaliação os Eixos possuem 4 níveis (NÍVELdeREFERÊNCIA) e cada nível possue N competências. Cada competência tem M questões. É dado o nome de QuestãoFolha, à última questão respondida da última competência em um eixo, de qualquer nível, havendo assim, 4 questões QuestãoFolha.
+
+** Distinto do NÍVELdaCRIANÇA, mas baseado nele. Atualmente é definido no resultado, dependendo da resposta da QuestãoFolha, para um eixo.
+   Exemplo do modelo atual: Se uma criança responder corretamente uma QuestãoFolha de um NÍVELdeREFERÊNCIA, seu NÍVELdaCRIANÇA será o mesmo.
+                            Caso contrário, a criança pertencerá a um nível abaixo.
+PONTUAÇÃO
+=======================================================
+Atualmente não discrimina o caminho que a criança percorreu, porém precisamos que ela seja
