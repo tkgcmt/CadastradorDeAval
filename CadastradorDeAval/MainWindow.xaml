@@ -105,7 +105,7 @@
         <TabControl x:Name="BarraAbaTC" Style="{DynamicResource SimpleTabControl}" BorderBrush="#FF0F0D0D" Background="#FF0F0D0D" d:LayoutOverrides="LeftMargin, RightMargin" Margin="0,20,0,0">
             <!-- === Avaliação === -->
             <TabItem x:Name="AvalTabItem" Header="Avaliações" Style="{DynamicResource SimpleTabItem}" Margin="0,0,-7.6,0">
-                <Grid x:Name="AvalTab" Background="#FF0F0D0D" Margin="-4.005,-5,-4.03,-4.007">
+                <Grid x:Name="AvalTab" Background="#FF0F0D0D" Margin="0,-8,-8,-1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="159*"/>
                         <ColumnDefinition Width="70*"/>
@@ -117,51 +117,49 @@
                         <RowDefinition Height="97*"/>
                         <RowDefinition Height="40*"/>
                         <RowDefinition Height="55*"/>
-                        <RowDefinition Height="285*"/>
+                        <RowDefinition Height="127*"/>
+                        <RowDefinition Height="158*"/>
                     </Grid.RowDefinitions>
                     <!-- === Botões === -->
                     <!-- Excluir Avaliação -->
-                    <Button x:Name="AvalDel" Content="Excluir Avaliação" Style="{DynamicResource SimpleButton}" Margin="10,0,19.643,14.615" d:LayoutOverrides="LeftMargin, RightMargin" Grid.Row="3" Height="25.073" VerticalAlignment="Bottom"/>
+                    <Button x:Name="AvalDel" Content="Excluir Avaliação" Style="{DynamicResource SimpleButton}" Margin="10,0,20,15" Grid.Row="4" Height="25" VerticalAlignment="Bottom"/>
                     <!-- Nova Avaliação -->
-                    <Button x:Name="AvalNovo" Content="Nova Avaliação" Style="{DynamicResource SimpleButton}" Margin="10,61.872,19.643,0" Height="25.073" VerticalAlignment="Top" d:LayoutOverrides="LeftMargin, RightMargin"/>
+                    <Button x:Name="AvalNovo" Content="Nova Avaliação" Style="{DynamicResource SimpleButton}" Margin="10,62,20,0" Height="25" VerticalAlignment="Top"/>
                     <!-- Abrir Avaliação -->
-                    <Button x:Name="AvalAbrir" Content="Abrir Avaliação" Style="{DynamicResource SimpleButton}" Margin="10,11.992,19.643,0" d:LayoutOverrides="LeftMargin, RightMargin" Height="25.073" VerticalAlignment="Top"/>
+                    <Button x:Name="AvalAbrir" Content="Abrir Avaliação" Style="{DynamicResource SimpleButton}" Margin="10,12,20,0" Height="25" VerticalAlignment="Top"/>
                     <!-- Título -->
-                    <Label x:Name="AvalTituloLbl" Content="Título" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="60" Foreground="#FFDADADA" Margin="0.358,0,0,25.284" Grid.Column="1" RenderTransformOrigin="0.284,0.6" Height="25.013" VerticalAlignment="Bottom" />
-                    <TextBox x:Name="AvalTituloTxt" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" Text="Texto do título da Avaliação" Visibility="Visible" Margin="-0.734,0,199.841,28.004" Grid.Column="2" Height="19.574" VerticalAlignment="Bottom"/>
+                    <Label x:Name="AvalTituloLbl" Content="Título" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="60" Foreground="#FFDADADA" Margin="0,0,0,25" Grid.Column="1" RenderTransformOrigin="0.284,0.6" Height="25" VerticalAlignment="Bottom" />
+                    <TextBox x:Name="AvalTituloTxt" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" Text="Texto do título da Avaliação" Visibility="Visible" Margin="69,0,200,28" Grid.Column="1" Height="20" VerticalAlignment="Bottom" Grid.ColumnSpan="2"/>
                     <!-- Descrição -->
-                    <Label x:Name="AvalDescrLbl" Content="Descrição" Height="19.5"  Style="{DynamicResource SimpleLabel}" VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" Background="Black" Foreground="#FFDADADA" Margin="0.358,40.615,0,0" Grid.Row="3" d:LayoutOverrides="VerticalAlignment" Grid.Column="1" />
-                    <TextBox x:Name="AvalDescrTxt" Style="{DynamicResource SimpleTextBox}"   TextWrapping="Wrap" Text="Descrição da avaliação" Margin="-1.253,40.615,0.246,14.615" Grid.Row="3" Grid.Column="2"/>
+                    <Label x:Name="AvalDescrLbl" Content="Descrição" Height="19"  Style="{DynamicResource SimpleLabel}" VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" Background="Black" Foreground="#FFDADADA" Margin="0,41,0,0" Grid.Row="3" Grid.Column="1" />
+                    <TextBox x:Name="AvalDescrTxt" Style="{DynamicResource SimpleTextBox}"   TextWrapping="Wrap" Text="Descrição da avaliação" Margin="0,41,0,0" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" Width="489"/>
                     <!-- === Feedback Avaliação === -->
-                    <Label x:Name="AvalFeedbackLbl" Content="Feedback &#xD;&#xA;Avaliação"  Style="{DynamicResource SimpleLabel}" Margin="-0.357,10,0,-8.615" Background="Black" Foreground="#FFDADADA"  HorizontalContentAlignment="Center" Grid.Column="1" Grid.Row="1"/>
+                    <Label x:Name="AvalFeedbackLbl" Content="Feedback &#xD;&#xA;Avaliação"  Style="{DynamicResource SimpleLabel}" Margin="0,10,0,46" Background="Black" Foreground="#FFDADADA"  HorizontalContentAlignment="Center" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"/>
                     <!-- Feedback Pos -->
-                    <Button x:Name="AvalFeedbackPosBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" HorizontalAlignment="Left" Width="61.086" Grid.Column="2" Grid.Row="1" Height="25.343" VerticalAlignment="Top" Click="AvalFeedbackPosBtn_Click"/>
-                    <TextBox x:Name="AvalFeedbackPosTxt" Style="{DynamicResource SimpleTextBox}" Margin="61.086,0,258.785,0" TextWrapping="Wrap" Grid.Column="2" Grid.Row="1" Height="25.343" VerticalAlignment="Top"/>
-                    <Button x:Name="AvalFeedbackPosBtn1" Content="Apagar" Style="{DynamicResource SimpleButton}"  Margin="0,0,199.839,0" MinWidth="60" Grid.Column="2" Grid.Row="1" Height="25.343" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60"/>
+                    <Button x:Name="AvalFeedbackPosBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" HorizontalAlignment="Left" Width="61" Grid.Column="2" Grid.Row="1" Height="25" VerticalAlignment="Top" Click="AvalFeedbackPosBtn_Click"/>
+                    <TextBox x:Name="AvalFeedbackPosTxt" Style="{DynamicResource SimpleTextBox}" Margin="61,0,258,0" TextWrapping="Wrap" Grid.Column="2" Grid.Row="1" Height="25" VerticalAlignment="Top"/>
+                    <Button x:Name="AvalFeedbackPosBtn1" Content="Apagar" Style="{DynamicResource SimpleButton}"  Margin="0,0,200,0" MinWidth="60" Grid.Column="2" Grid.Row="1" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60"/>
                     <!-- Feedback Neg -->
-                    <Button x:Name="AvalFeedbackNegBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" Margin="0,1.828,0,0" HorizontalAlignment="Left" Width="61.086" Grid.Column="2" Grid.Row="2" Height="25" VerticalAlignment="Top"/>
-                    <TextBox x:Name="AvalFeedbackNegTxt" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" Margin="59.958,1.828,259.913,0" Grid.Column="2" Grid.Row="2" Height="25" VerticalAlignment="Top"/>
-                    <Button x:Name="AvalFeedbackNegBtn1" Content="Apagar" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="0,1.828,199.839,0" Grid.Column="2" Grid.Row="2" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60"/>
+                    <Button x:Name="AvalFeedbackNegBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" Margin="0,2,0,0" HorizontalAlignment="Left" Width="61" Grid.Column="2" Grid.Row="2" Height="25" VerticalAlignment="Top" Click="AvalFeedbackNegBtn_Click"/>
+                    <TextBox x:Name="AvalFeedbackNegTxt" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" Margin="60,2,259,0" Grid.Column="2" Grid.Row="2" Height="25" VerticalAlignment="Top"/>
+                    <Button x:Name="AvalFeedbackNegBtn1" Content="Apagar" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="0,2,200,0" Grid.Column="2" Grid.Row="2" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60"/>
                     <!-- === Saltos Avaliação === -->
-                    <Label x:Name="AvalSaltosLbl" Content="Saltos &#xD;&#xA;Avaliação"  Style="{DynamicResource SimpleLabel}" Margin="0,10,0.246,-8.615" Background="Black" Foreground="#FFDADADA"  HorizontalContentAlignment="Center" HorizontalAlignment="Right" Width="54.967" Grid.Column="2" Grid.Row="1"/>
-                    <ComboBox x:Name="AvalSaltosPosCmb" Margin="20.445,0,0.621,0" Style="{DynamicResource SimpleComboBox}" Grid.Column="3" Grid.Row="1" Height="25.324" VerticalAlignment="Top">
-                        <ComboBoxItem x:Name="SaltoPosEnunEx_1" Content="1002" Style="{DynamicResource SimpleComboBoxItem}" Width="20" IsSelected="True"/>
+                    <Label x:Name="AvalSaltosLbl" Content="Saltos &#xD;&#xA;Avaliação"  Style="{DynamicResource SimpleLabel}" Margin="0,10,0,46" Background="Black" Foreground="#FFDADADA"  HorizontalContentAlignment="Center" HorizontalAlignment="Right" Width="55" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2"/>
+                    <!-- Saltos Pos -->
+                    <ComboBox x:Name="AvalSaltosPosCmb" Margin="20,0,1,0" Style="{DynamicResource SimpleComboBox}" Grid.Column="3" Grid.Row="1" Height="25" VerticalAlignment="Top" SelectionChanged="AvalSaltosPosCmb_SelectionChanged">
+                        <ComboBoxItem x:Name="SaltoPosEnunEx_1" Content="1002" Style="{DynamicResource SimpleComboBoxItem}" Width="20" IsSelected="True" Selected="SaltoPosEnunEx_1_Selected"/>
                         <ComboBoxItem x:Name="SaltoPosEnunEx_2" Content="1003" Style="{DynamicResource SimpleComboBoxItem}" Width="20" IsSelected="True"/>
                     </ComboBox>
-                    <!-- Saltos Pos -->
-                    <TextBox x:Name="AvalSaltosPosTxt" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" Grid.Column="3" Margin="20.443,0,20.639,0" Grid.Row="1" Height="25.324" VerticalAlignment="Top"/>
-                    <Button x:Name="AvalSaltosPosDel" Content="Apagar" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="-0.621,-0.001,9.297,0" Grid.Column="4" Grid.Row="1" Height="25.324" VerticalAlignment="Top"/>
-                    <ComboBox x:Name="AvalSaltosNegCmb" Margin="20.445,1.722,0.621,0" Style="{DynamicResource SimpleComboBox}" Grid.Column="3" Grid.Row="2" Height="24.999" VerticalAlignment="Top">
-                        <ComboBoxItem x:Name="SaltoNegEnunEx_1" Content="1002" Style="{DynamicResource SimpleComboBoxItem}" Width="20" IsSelected="True"/>
-                        <ComboBoxItem x:Name="SaltoNegEnunEx_2" Content="1003" Style="{DynamicResource SimpleComboBoxItem}" Width="20" IsSelected="True"/>
-                    </ComboBox>
+                    <TextBox x:Name="AvalSaltosPosTxt" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" Grid.Column="3" Margin="20,0,21,0" Grid.Row="1" Height="25" VerticalAlignment="Top" Text="a"/>
+                    <Button x:Name="AvalSaltosPosDel" Content="Apagar" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="170,0,9,0" Grid.Column="3" Grid.Row="1" Height="25" VerticalAlignment="Top" Grid.ColumnSpan="2" Click="AvalSaltosPosDel_Click"/>
                     <!-- Saltos Neg -->
-                    <TextBox x:Name="AvalSaltosNegTxt" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" Margin="20.443,1.722,20.639,0" Grid.Column="3" Grid.Row="2" Height="24.999" VerticalAlignment="Top"/>
-                    <Button x:Name="AvalSaltosNegDel" Content="Apagar" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="-0.621,1.721,9.297,0" Grid.Column="4" Grid.Row="2" Height="25" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="AvalSaltosNegCmb" Margin="20,2,1,0" Style="{DynamicResource SimpleComboBox}" Grid.Column="3" Grid.Row="2" Height="25" VerticalAlignment="Top" SelectionChanged="AvalSaltosNegCmb_SelectionChanged" ItemsSource="{Binding _LISTAO}" DisplayMemberPath="Nome" SelectedValue="{Binding AvalSaltosNegTxt.Text}" SelectedValuePath="AvalSaltosNegTxt/Text"/>
+                    <TextBox x:Name="AvalSaltosNegTxt" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" Margin="20,2,21,0" Grid.Column="3" Grid.Row="2" Height="25" VerticalAlignment="Top" />
+                    <Button x:Name="AvalSaltosNegDel" Content="Apagar" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="170,2,9,0" Grid.Column="3" Grid.Row="2" Height="25" VerticalAlignment="Top" Grid.ColumnSpan="2" Click="AvalSaltosNegDel_Click"/>
                     <!-- Campo Ajuda-->
-                    <TextBlock x:Name="AvalAjuda" Margin="20.443,40.615,10,14.615" TextWrapping="Wrap" Text="Campo de ajuda." Background="#FF3A3A3A" Foreground="#FFDEDEDE" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2"/>
+                    <TextBlock x:Name="AvalAjuda" Margin="20,41,10,14" TextWrapping="Wrap" Text="Campo de ajuda." Background="#FF3A3A3A" Foreground="#FFDEDEDE" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
                     <!-- Estatísticas -->
-                    <TextBlock x:Name="AvalStat" Margin="20.443,10,30.376,10" TextWrapping="Wrap" Foreground="#FFDEDEDE" Grid.Column="3"><Run Text="Disciplinas: "/><LineBreak/><Run/><LineBreak/><Run Text="Questões: "/></TextBlock>
+                    <TextBlock x:Name="AvalStat" Margin="20,10,10,10" TextWrapping="Wrap" Foreground="#FFDEDEDE" Grid.Column="3" Grid.ColumnSpan="2"><Run Text="Disciplinas: "/><LineBreak/><Run/><LineBreak/><Run Text="Questões: "/></TextBlock>
                 </Grid>
             </TabItem>
             <!-- === Questão === -->

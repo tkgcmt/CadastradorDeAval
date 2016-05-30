@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace CadastradorDeAval
 {
-    public interface InterfCadastrador
+    interface InterfCadastrador
     {
         /**********************************************************************
             Abre diálogo de busca de arquivo nas extensões ext[] e devolve o 
             caminho desse arquivo
         **********************************************************************/
-        string Localizar(string[] ext);
+        string LocalizarArq(string[] ext);
 
     }
 }

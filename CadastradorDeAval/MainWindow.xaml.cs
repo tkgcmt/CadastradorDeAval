@@ -23,15 +23,65 @@ namespace CadastradorDeAval
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        SeletorArquivos seletor = new SeletorArquivos();
+        private List<NI> _LISTAO = new List<NI>();
         public MainWindow()
         {
+            int num = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                num = 1000 + i + 1;
+                _LISTAO.Add(new NI("T" + num.ToString(), num));
+
+            }
             InitializeComponent();
+            AvalSaltosNegCmb.ItemsSource = _LISTAO;
         }
 
         private void AvalFeedbackPosBtn_Click(object sender, RoutedEventArgs e)
         {
-            SeletorArquivos cadastrador = new SeletorArquivos();
-            AvalFeedbackPosTxt.Text = cadastrador.localizarArq("audio");
+            string[] arr = { "audio" };
+            AvalFeedbackPosTxt.Text = seletor.LocalizarArq(arr);
+        }
+
+        private void AvalFeedbackNegBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string[] arr = { "audio" };
+            AvalFeedbackNegTxt.Text = seletor.LocalizarArq(arr);
+        }
+
+        private void AvalSaltosPosCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void SaltoPosEnunEx_1_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AvalSaltosNegCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (AvalSaltosPosTxt.Text != "a")
+            {
+                AvalSaltosPosTxt.Text = "a";
+            }
+            else
+            {
+                AvalSaltosPosTxt.Text = "b";
+            }            
+            //AvalSaltosNegTxt.Text = AvalSaltosPosCmb.SelectedItem.ToString().Remove(0, AvalSaltosPosCmb.SelectedItem.ToString().Length - 4 );
+        }
+
+        private void AvalSaltosNegDel_Click(object sender, RoutedEventArgs e)
+        {
+            AvalSaltosNegTxt.Text = "";
+        }
+
+        private void AvalSaltosPosDel_Click(object sender, RoutedEventArgs e)
+        {
+            AvalSaltosNegTxt.Text = "";
         }
     }
 }
