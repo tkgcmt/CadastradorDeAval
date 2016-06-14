@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace CadastradorDeAval
 {
@@ -14,5 +15,12 @@ namespace CadastradorDeAval
         **********************************************************************/
         string LocalizarArq(string[] ext);
 
+        FileStream AbreCSV(string caminho);
+        FileStream AbreAudio(string caminho);
+        FileStream AbreImagem(string caminho);
+
+
     }
+
+
 }

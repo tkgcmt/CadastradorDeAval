@@ -7,6 +7,8 @@ using System.IO;
 using System.Windows;
 using Microsoft.Win32;
 using System.Security;
+using System;
+using System.ComponentModel;
 
 namespace CadastradorDeAval
 {
@@ -14,8 +16,37 @@ namespace CadastradorDeAval
     // Summary:
     //     Classe que concentra tarefas comuns ao cadastramento das informações para o cabeçalho,
     //     incluindo Enunciado e metadados.
-    public class SeletorArquivos : InterfCadastrador
+    public class Arquivo : InterfCadastrador, INotifyPropertyChanged
     {
+        //Implementing INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(String Property)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(Property));
+            }
+        }
+
+        //Guarda o caminho absoluto do arquivo selecionado
+        private string arq = "";
+
+        public string Arq
+        {
+            get
+            {
+                return arq;
+
+            }
+
+            set
+            {
+                arq = value;
+
+                NotifyPropertyChanged("Arq");
+            }
+        }
         // Objeto declarado fora da função. Faz com que ele lembre qual foi o último diretório 
         // visitado.
         private OpenFileDialog dialogo = new OpenFileDialog();
@@ -44,7 +75,7 @@ namespace CadastradorDeAval
                 switch (ext)
                 {
                     case "csv":
-                        filtro =  filtro + @"Variáveis separadas por vírgulas (*.csv)|*.csv|";
+                        filtro = filtro + @"Variáveis separadas por vírgulas (*.csv)|*.csv|";
                         break;
                     case "imagem":
                         filtro = filtro + @"Imagen (*.jpg)|*.jpg|(*.png)|*.png|(*.gif)|*.gif|(*.jpeg)|*.jpeg|"
@@ -82,15 +113,15 @@ namespace CadastradorDeAval
                 catch (SecurityException ex)
                 {
                     // O usuário não possui permissão para ler arquivos
-                    MessageBox.Show("Verfique se você tem permissão para ler" 
+                    MessageBox.Show("Verfique se você tem permissão para ler"
                         + "os arquivos e tente novamente.\n"
-                        + ex.Message, 
-                        "Erro de leitura", 
-                        MessageBoxButton.OK, 
+                        + ex.Message,
+                        "Erro de leitura",
+                        MessageBoxButton.OK,
                         MessageBoxImage.Error);
                 }
                 catch (System.Exception ex)
-                {   
+                {
                     // Erro ao ler o arquivo
                     MessageBox.Show("Erro ao ler o arquivo.\n"
                         + ex.Message,
@@ -101,27 +132,524 @@ namespace CadastradorDeAval
             }
             return caminho;
         }
+
+        public FileStream AbreCSV(string caminho)
+        {
+            throw new NotImplementedException();
+        }
+
+        public FileStream AbreAudio(string caminho)
+        {
+            throw new NotImplementedException();
+        }
+
+        public FileStream AbreImagem(string caminho)
+        {
+            throw new NotImplementedException();
+        }
     }
+
+    // Summary:
+    //     Classe que contém informações sobre a questão e/ou informações comuns a todas as
+    //     alternativas. Atributos e variáveis que contenham a letra 'Q' no nome, será referente
+    //     a essa classe.
+    public class Alternativa : INotifyPropertyChanged
+    {   //Implementing INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(String Property)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(Property));
+            }
+        }
+
+        private int tela;
+        public int OrdemTela
+        {
+            get
+            {
+                return tela;
+
+            }
+            set
+            {
+                tela = value;
+
+                NotifyPropertyChanged("OrdemTela");
+            }
+        }
+
+        private int resp;
+        public int OrdemResposta
+        {
+            get
+            {
+                return resp;
+
+            }
+            set
+            {
+                resp = value;
+
+                NotifyPropertyChanged("OrdemResposta");
+            }
+        }
+
+
+        private string posFeed;
+        private string PosFeed
+        {
+            get
+            {
+                return posFeed;
+            }
+            set
+            {
+                posFeed = value;
+                NotifyPropertyChanged("PosFeed");
+            }
+
+        }
+        private string negFeed;
+        private string NegFeed
+        {
+            get
+            {
+                return negFeed;
+            }
+            set
+            {
+                negFeed = value;
+                NotifyPropertyChanged("NegFeed");
+            }
+
+        }
+        private string posSalto;
+        private string PosSalto
+        {
+            get
+            {
+                return posSalto;
+            }
+            set
+            {
+                posSalto = value;
+                NotifyPropertyChanged("PosSalto");
+            }
+
+        }
+        private string negSalto;
+        private string NegSalto
+        {
+            get
+            {
+                return negSalto;
+            }
+            set
+            {
+                negSalto = value;
+                NotifyPropertyChanged("NegSalto");
+            }
+
+        }
+
+        private string img;
+
+        public string Imagem
+        {
+            get
+            {
+                return img;
+
+            }
+            set
+            {
+                img = value;
+
+                NotifyPropertyChanged("Imagem");
+            }
+        }
+
+        private string text;
+        public string Texto
+        {
+            get
+            {
+                return text;
+
+            }
+            set
+            {
+                text = value;
+
+                NotifyPropertyChanged("Texto");
+            }
+        }
+
+        private string aud;
+        public string Audio
+        {
+            get
+            {
+                return aud;
+
+            }
+            set
+            {
+                aud = value;
+
+                NotifyPropertyChanged("Audio");
+            }
+        }
+    }
+
+
+    // Summary:
+    //     Classe que contém informações sobre a questão e/ou informações comuns a todas as
+    //     alternativas. Atributos e variáveis que contenham a letra 'Q' no nome, será referente
+    //     a essa classe.
+    public class Questao : INotifyPropertyChanged
+    {   //Implementing INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(String Property)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(Property));
+            }
+        }
+        private int ni;
+        public int NI
+        {
+            get
+            {
+                return ni;
+
+            }
+            set
+            {
+                ni = value;
+
+                NotifyPropertyChanged("NI");
+            }
+        }
+        private bool dica;
+        public bool Dica
+        {
+            get
+            {
+                return dica;
+
+            }
+            set
+            {
+                dica = value;
+
+                NotifyPropertyChanged("Dica");
+            }
+        }
+
+        private string tipo;
+        public string Tipo
+        {
+            get
+            {
+                return tipo;
+
+            }
+            set
+            {
+                tipo = value;
+
+                NotifyPropertyChanged("Tipo");
+            }
+        }
+
+        private string cor;
+        public string Cor
+        {
+            get
+            {
+                return cor;
+
+            }
+            set
+            {
+                cor = value;
+
+                NotifyPropertyChanged("Cor");
+            }
+        }
+
+        private string disci;
+        public string Disciplina
+        {
+            get
+            {
+                return disci;
+
+            }
+            set
+            {
+                disci = value;
+
+                NotifyPropertyChanged("Disciplina");
+            }
+        }
+
+        private string eixo;
+
+        public string Eixo
+        {
+            get
+            {
+                return eixo;
+
+            }
+            set
+            {
+                eixo = value;
+
+                NotifyPropertyChanged("Eixo");
+            }
+        }
+
+        private string comp;
+
+        public string Competencia
+        {
+            get
+            {
+                return comp;
+
+            }
+            set
+            {
+                comp = value;
+
+                NotifyPropertyChanged("Competencia");
+            }
+        }
+
+        private string titu;
+
+        public string Titulo
+        {
+            get
+            {
+                return titu;
+
+            }
+            set
+            {
+                titu = value;
+
+                NotifyPropertyChanged("Titulo");
+            }
+        }
+
+        private string posFeed;
+        private string PosFeed
+        {
+            get
+            {
+                return posFeed;
+            }
+            set
+            {
+                posFeed = value;
+                NotifyPropertyChanged("PosFeed");
+            }
+
+        }
+        private string negFeed;
+        private string NegFeed
+        {
+            get
+            {
+                return negFeed;
+            }
+            set
+            {
+                negFeed = value;
+                NotifyPropertyChanged("NegFeed");
+            }
+
+        }
+        private string posSalto;
+        private string PosSalto
+        {
+            get
+            {
+                return posSalto;
+            }
+            set
+            {
+                posSalto = value;
+                NotifyPropertyChanged("PosSalto");
+            }
+
+        }
+        private string negSalto;
+        private string NegSalto
+        {
+            get
+            {
+                return negSalto;
+            }
+            set
+            {
+                negSalto = value;
+                NotifyPropertyChanged("NegSalto");
+            }
+
+        }
+        private string img;
+
+        public string Imagem
+        {
+            get
+            {
+                return img;
+
+            }
+            set
+            {
+                img = value;
+
+                NotifyPropertyChanged("Imagem");
+            }
+        }
+
+        private string text;
+        public string Texto
+        {
+            get
+            {
+                return text;
+
+            }
+            set
+            {
+                text = value;
+
+                NotifyPropertyChanged("Texto");
+            }
+            }
+
+        private string aud;
+        public string Audio
+        {
+            get
+            {
+                return aud;
+
+            }
+            set
+            {
+                aud = value;
+
+                NotifyPropertyChanged("Audio");
+            }
+        }
+
+        private string psicoVar;
+        public string Variacao
+        {
+            get
+            {
+                return psicoVar;
+            }
+            set
+            {
+                psicoVar = value;
+                NotifyPropertyChanged("Variacao");
+            }
+        }
+
+        public Alternativa[] ListaAlt;
+    }
+
+
     //
     // Summary:
-    //     Classe que armazena a lista de questões.
+    //     Classe que referente aos atributos comuns a toda a Avaliação
 
-    public class NI
-    {   
-        // Atributo de Nome
-        private string nome = "Err_nome_não_definido_";
-        public string Nome
-        { get; set; }
+    public class Avaliacao :INotifyPropertyChanged
+    {   //Implementing INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        // Atributo de NID
-        private int nid = -1;
-        public int NID { get; set; }
-
-        // Construtor da classe
-        public NI(string titulo="", int numID=0)
+        private void NotifyPropertyChanged(String Property)
         {
-            Nome = titulo;
-            NID = numID;
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(Property));
+            }
         }
+        private string caminho;
+        public string Caminho
+        {
+            get
+            {
+                return caminho;
+            }
+            set
+            {
+                caminho = value;
+                NotifyPropertyChanged("Caminho");
+            }
+        }
+        private string posFeed;
+        private string PosFeed
+        {
+                get
+            {
+                return posFeed;
+            }
+            set
+            {
+                posFeed = value;
+                NotifyPropertyChanged("PosFeed");
+            }
+
+        }
+        private string negFeed;
+        private string NegFeed
+        {
+            get
+            {
+                return negFeed;
+            }
+            set
+            {
+                negFeed = value;
+                NotifyPropertyChanged("NegFeed");
+            }
+
+        }
+
+        private string descrip;
+        private string Descrip
+        {
+            get
+            {
+                return descrip;
+
+            }
+            set
+            {
+                descrip = value;
+
+                NotifyPropertyChanged("Descrip");
+            }
+
+        }
+        int DisciNum { get; set;}
+        int QNum { get; set; }
+
+        public Questao[] ListaQ;
     }
 }

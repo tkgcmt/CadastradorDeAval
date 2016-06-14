@@ -24,19 +24,22 @@ namespace CadastradorDeAval
     public partial class MainWindow : Window
     {
 
-        SeletorArquivos seletor = new SeletorArquivos();
-        private List<NI> _LISTAO = new List<NI>();
+        public Arquivo seletor = new Arquivo();
+        public List<NI> _LISTANI = new List<NI>();
+        public NI _tempQuestao = new NI();
         public MainWindow()
         {
             int num = 0;
+            //Inicializa _LISTANI para 
             for (int i = 0; i < 10; i++)
             {
                 num = 1000 + i + 1;
-                _LISTAO.Add(new NI("T" + num.ToString(), num));
-
+                _LISTANI.Add(new NI());
+                _LISTANI[i].NID = num;
+                _LISTANI[i].Nome = "T" + num.ToString();
             }
             InitializeComponent();
-            AvalSaltosNegCmb.ItemsSource = _LISTAO;
+            //AvalSaltosNegCmb.ItemsSource = _LISTANI;
         }
 
         private void AvalFeedbackPosBtn_Click(object sender, RoutedEventArgs e)
@@ -47,8 +50,7 @@ namespace CadastradorDeAval
 
         private void AvalFeedbackNegBtn_Click(object sender, RoutedEventArgs e)
         {
-            string[] arr = { "audio" };
-            AvalFeedbackNegTxt.Text = seletor.LocalizarArq(arr);
+            AvalFeedbackNegTxt.Text = seletor.LocalizarArq("audio");
         }
 
         private void AvalSaltosPosCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -63,15 +65,22 @@ namespace CadastradorDeAval
 
         private void AvalSaltosNegCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (AvalSaltosPosTxt.Text != "a")
+            if (AvalSaltosPosTxt.Text != null && AvalSaltosPosTxt.Text != "")
             {
-                AvalSaltosPosTxt.Text = "a";
+                if (AvalSaltosPosTxt.Text != "a")
+                {
+                    AvalSaltosPosTxt.Text = "a";
+                }
+                else
+                {
+                    AvalSaltosPosTxt.Text = "b";
+                }
             }
-            else
+            if (AvalSaltosNegCmb.SelectedItem != null)
             {
-                AvalSaltosPosTxt.Text = "b";
-            }            
-            //AvalSaltosNegTxt.Text = AvalSaltosPosCmb.SelectedItem.ToString().Remove(0, AvalSaltosPosCmb.SelectedItem.ToString().Length - 4 );
+                AvalSaltosNegTxt.Text = AvalSaltosNegCmb.SelectedItem.ToString();
+            }
+            //AvalSaltosNegTxt.Text = AvalSaltosNegCmb.SelectedItem.ToString().Remove(0, AvalSaltosPosCmb.SelectedItem.ToString().Length - 4 );
         }
 
         private void AvalSaltosNegDel_Click(object sender, RoutedEventArgs e)
@@ -82,6 +91,11 @@ namespace CadastradorDeAval
         private void AvalSaltosPosDel_Click(object sender, RoutedEventArgs e)
         {
             AvalSaltosNegTxt.Text = "";
+        }
+
+        private void AvalSaltosPosTxt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
