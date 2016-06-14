@@ -199,7 +199,7 @@ namespace CadastradorDeAval
 
 
         private string posFeed;
-        private string PosFeed
+        public string PosFeed
         {
             get
             {
@@ -213,7 +213,7 @@ namespace CadastradorDeAval
 
         }
         private string negFeed;
-        private string NegFeed
+        public string NegFeed
         {
             get
             {
@@ -227,7 +227,7 @@ namespace CadastradorDeAval
 
         }
         private string posSalto;
-        private string PosSalto
+        public string PosSalto
         {
             get
             {
@@ -241,7 +241,7 @@ namespace CadastradorDeAval
 
         }
         private string negSalto;
-        private string NegSalto
+        public string NegSalto
         {
             get
             {
@@ -256,7 +256,6 @@ namespace CadastradorDeAval
         }
 
         private string img;
-
         public string Imagem
         {
             get
@@ -452,7 +451,7 @@ namespace CadastradorDeAval
         }
 
         private string posFeed;
-        private string PosFeed
+        public string PosFeed
         {
             get
             {
@@ -466,7 +465,7 @@ namespace CadastradorDeAval
 
         }
         private string negFeed;
-        private string NegFeed
+        public string NegFeed
         {
             get
             {
@@ -480,7 +479,7 @@ namespace CadastradorDeAval
 
         }
         private string posSalto;
-        private string PosSalto
+        public string PosSalto
         {
             get
             {
@@ -494,7 +493,7 @@ namespace CadastradorDeAval
 
         }
         private string negSalto;
-        private string NegSalto
+        public string NegSalto
         {
             get
             {
@@ -508,7 +507,6 @@ namespace CadastradorDeAval
 
         }
         private string img;
-
         public string Imagem
         {
             get
@@ -589,7 +587,7 @@ namespace CadastradorDeAval
                 PropertyChanged(this, new PropertyChangedEventArgs(Property));
             }
         }
-        private string caminho;
+        private string caminho = "Local do arquivo .csv";
         public string Caminho
         {
             get
@@ -603,7 +601,7 @@ namespace CadastradorDeAval
             }
         }
         private string posFeed;
-        private string PosFeed
+        public string PosFeed
         {
                 get
             {
@@ -617,7 +615,7 @@ namespace CadastradorDeAval
 
         }
         private string negFeed;
-        private string NegFeed
+        public string NegFeed
         {
             get
             {
@@ -632,7 +630,7 @@ namespace CadastradorDeAval
         }
 
         private string descrip;
-        private string Descrip
+        public string Descrip
         {
             get
             {
@@ -647,8 +645,8 @@ namespace CadastradorDeAval
             }
 
         }
-        int DisciNum { get; set;}
-        int QNum { get; set; }
+        public int DisciNum { get; set;}
+        public int QNum { get; set; }
 
         public Questao[] ListaQ;
     }
