@@ -39,7 +39,7 @@ namespace CadastradorDeAval
             InicializarValores();
         }
 
-        public void InicializarValores()
+        private void InicializarValores()
         {   
 
             // Constroi uma lista de questões para teste em ComboBox
@@ -65,43 +65,78 @@ namespace CadastradorDeAval
             AvalFeedbackNegTxt.DataContext = Aval;
         }
 
-        private void AvalFeedbackPosBtn_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Escreve o caminho do arquivo de extensao 'extensao' no parâmetro 'Text' de um objeto 'obj_caminho'.
+        /// </summary>
+        /// <param name="extensao"></param>
+        /// <param name="obj_caminho"></param>
+        /// <remarks>Garante o valor original de obj_caminho.Text se o diálogo for cancelado.</remarks>
+        private void AbrirArq( TextBox obj_caminho, params string[] extensao)
         {
-            Aval.PosFeed = seletor.LocalizarArq("audio");
-            AvalFeedbackPosTxt.IsEnabled = true;
+            string temp = seletor.LocalizarArq("csv");
+            if (temp != "")
+            {
+                obj_caminho.Text = temp;
+            }
         }
 
-        private void AvalFeedbackPosBtn1_Click(object sender, RoutedEventArgs e)
-        {
-            Aval.PosFeed = "";
-            AvalFeedbackPosTxt.IsEnabled = false;
-        }
 
-        private void AvalFeedbackNegBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Aval.NegFeed = seletor.LocalizarArq("audio");
-            AvalFeedbackNegTxt.IsEnabled = true;
-        }
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        //
+        // Controle da interface (VielModel talvez)
+        //
+        ///////////////////////////////////////////////////////////////////////////////////////////
 
-        private void AvalFeedbackNegBtn1_Click(object sender, RoutedEventArgs e)
-        {
-            Aval.NegFeed = "";
-            AvalFeedbackNegTxt.IsEnabled = false;
-        }
-
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        // Aval CSV
+        ///////////////////////////////////////////////////////////////////////////////////////////
         private void AvalAbrir_Click(object sender, RoutedEventArgs e)
         {
-            Aval.Caminho = seletor.LocalizarArq("csv");
+            AbrirArq(AvalTituloTxt, "csv");
         }
 
         private void AvalNovo_Click(object sender, RoutedEventArgs e)
         {
-
+            Console.Write("Not implemented yet");
         }
 
         private void AvalDel_Click(object sender, RoutedEventArgs e)
         {
-            Aval.Caminho = CAM_INICIAL;
+            Aval.Caminho = "";
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        // Aval Feedback
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void AvalFeedbackPosBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AbrirArq(AvalFeedbackPosTxt, "audio");
+        }
+
+        private void AvalFeedbackPosTxt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Aval.PosFeed = AvalFeedbackPosTxt.Text;
+        }
+
+        private void AvalFeedbackPosDel_Click(object sender, RoutedEventArgs e)
+        {
+            Aval.PosFeed = "";
+        }
+
+        private void AvalFeedbackNegBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AbrirArq(AvalFeedbackNegTxt, "audio");
+        }
+
+        private void AvalFeedbackNegTxt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Aval.NegFeed = AvalFeedbackNegTxt.Text;
+        }
+
+        private void AvalFeedbackNegDel_Click(object sender, RoutedEventArgs e)
+        {
+            Aval.NegFeed = "";
+        }
+
     }
 }

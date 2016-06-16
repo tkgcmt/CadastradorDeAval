@@ -44,7 +44,7 @@
         <!-- Barra Aba -->
         <TabControl x:Name="BarraAbaTC" Style="{DynamicResource SimpleTabControl}" BorderBrush="#FF0F0D0D" Background="#FF0F0D0D" d:LayoutOverrides="LeftMargin, RightMargin" Margin="0,20,0,0">
             <!-- === Avaliação === -->
-            <TabItem x:Name="AvalTabItem" Header="Avaliações" Style="{DynamicResource SimpleTabItem}" Margin="0,0,-7.6,0">
+            <TabItem x:Name="AvalTabItem" Header="Avaliações" Style="{DynamicResource SimpleTabItem}" Margin="0,0,-7.6,0" IsSelected="True" TabIndex="0">
                 <Grid x:Name="AvalTab" Background="#FF0F0D0D" Margin="0,-8,-8,-1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="159*"/>
@@ -62,27 +62,27 @@
                     </Grid.RowDefinitions>
                     <!-- === Botões === -->
                     <!-- Excluir Avaliação -->
-                    <Button x:Name="AvalDel" Content="Excluir Avaliação" Style="{DynamicResource SimpleButton}" Margin="10,0,20,15" Grid.Row="4" Height="25" VerticalAlignment="Bottom" Click="AvalDel_Click"/>
+                    <Button x:Name="AvalDel" Content="Excluir Avaliação" Style="{DynamicResource SimpleButton}" Margin="10,0,20,15" Grid.Row="4" Height="25" VerticalAlignment="Bottom" Click="AvalDel_Click" TabIndex="11"/>
                     <!-- Nova Avaliação -->
-                    <Button x:Name="AvalNovo" Content="Nova Avaliação" Style="{DynamicResource SimpleButton}" Margin="10,62,20,0" Height="25" VerticalAlignment="Top" Click="AvalNovo_Click"/>
+                    <Button x:Name="AvalNovo" Content="Nova Avaliação" Style="{DynamicResource SimpleButton}" Margin="10,62,20,0" Height="25" VerticalAlignment="Top" Click="AvalNovo_Click" TabIndex="2"/>
                     <!-- Abrir Avaliação -->
-                    <Button x:Name="AvalAbrir" Content="Abrir Avaliação" Style="{DynamicResource SimpleButton}" Margin="10,12,20,0" Height="25" VerticalAlignment="Top" Click="AvalAbrir_Click"/>
+                    <Button x:Name="AvalAbrir" Content="Abrir Avaliação" Style="{DynamicResource SimpleButton}" Margin="10,12,20,0" Height="25" VerticalAlignment="Top" Click="AvalAbrir_Click" TabIndex="1"/>
                     <!-- Título -->
                     <Label x:Name="AvalTituloLbl" Content="csv" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="60" Foreground="#FFDADADA" Margin="0,0,0,25" Grid.Column="1" RenderTransformOrigin="0.284,0.6" Height="25" VerticalAlignment="Bottom" />
-                    <TextBox x:Name="AvalTituloTxt" Style="{DynamicResource SimpleTextBox}" TextWrapping="NoWrap" Text="{Binding Path=Caminho}" Visibility="Visible" Margin="69,0,200,25" Grid.Column="1" Height="23" VerticalAlignment="Bottom" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="AvalTituloTxt" Style="{DynamicResource SimpleTextBox}" TextWrapping="NoWrap" Text="{Binding Path=Caminho}" Visibility="Visible" Margin="69,0,200,25" Grid.Column="1" Height="23" VerticalAlignment="Bottom" Grid.ColumnSpan="2" ToolTip="{Binding Text, ElementName=AvalTituloTxt, UpdateSourceTrigger=PropertyChanged}" TabIndex="3"/>
                     <!-- Descrição -->
                     <Label x:Name="AvalDescrLbl" Content="Descrição" Height="19"  Style="{DynamicResource SimpleLabel}" VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" Background="Black" Foreground="#FFDADADA" Margin="0,41,0,0" Grid.Row="3" Grid.Column="1" />
-                    <TextBox x:Name="AvalDescrTxt" Style="{DynamicResource SimpleTextBox}"   TextWrapping="NoWrap" Text="Descrição da avaliação" Margin="0,41,0,0" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" Width="489"/>
+                    <TextBox x:Name="AvalDescrTxt" Style="{DynamicResource SimpleTextBox}"   TextWrapping="NoWrap" Text="Descrição da avaliação" Margin="0,41,0,0" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" Width="489" TabIndex="10"/>
                     <!-- === Feedback Avaliação === -->
                     <Label x:Name="AvalFeedbackLbl" Content="Feedback &#xA;Avaliação"  Style="{DynamicResource SimpleLabel}" Margin="0,10,0,46" Background="Black" Foreground="#FFDADADA"  HorizontalContentAlignment="Center" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"/>
                     <!-- Feedback Pos -->
-                    <Button x:Name="AvalFeedbackPosBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" HorizontalAlignment="Left" Width="61" Grid.Column="2" Grid.Row="1" Height="25" VerticalAlignment="Top" Click="AvalFeedbackPosBtn_Click" ToolTip="Localizar Arquivo de Feedback Positivo" />
-                    <TextBox x:Name="AvalFeedbackPosTxt" Style="{DynamicResource SimpleTextBox}" Margin="61,0,258,0" Grid.Column="2" Grid.Row="1" Height="25" VerticalAlignment="Top" Text="{Binding Path=PosFeed}" ToolTip="{Binding Text, ElementName=AvalFeedbackPosTxt, UpdateSourceTrigger=PropertyChanged}" MaxLines="1" TextWrapping="NoWrap" />
-                    <Button x:Name="AvalFeedbackPosBtn1" Content="Apagar" Style="{DynamicResource SimpleButton}"  Margin="0,0,200,0" MinWidth="60" Grid.Column="2" Grid.Row="1" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60" ToolTip="Apaga o Arquivo de Feedback Positivo" Click="AvalFeedbackPosBtn1_Click"/>
+                    <Button x:Name="AvalFeedbackPosBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" HorizontalAlignment="Left" Width="61" Grid.Column="2" Grid.Row="1" Height="25" VerticalAlignment="Top" Click="AvalFeedbackPosBtn_Click" ToolTip="Localizar Arquivo de Feedback Positivo" TabIndex="4" />
+                    <TextBox x:Name="AvalFeedbackPosTxt" Style="{DynamicResource SimpleTextBox}" Margin="61,0,258,0" Grid.Column="2" Grid.Row="1" Height="25" VerticalAlignment="Top" Text="{Binding Path=PosFeed}" ToolTip="{Binding Text, ElementName=AvalFeedbackPosTxt, UpdateSourceTrigger=PropertyChanged}" MaxLines="1" TextWrapping="NoWrap" TextChanged="AvalFeedbackPosTxt_TextChanged" TabIndex="5" />
+                    <Button x:Name="AvalFeedbackPosDel" Content="Apagar" Style="{DynamicResource SimpleButton}"  Margin="0,0,200,0" MinWidth="60" Grid.Column="2" Grid.Row="1" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60" ToolTip="Apaga o Arquivo de Feedback Positivo" Click="AvalFeedbackPosDel_Click" TabIndex="6"/>
                     <!-- Feedback Neg -->
-                    <Button x:Name="AvalFeedbackNegBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" Margin="0,2,0,0" HorizontalAlignment="Left" Width="61" Grid.Column="2" Grid.Row="2" Height="25" VerticalAlignment="Top" Click="AvalFeedbackNegBtn_Click" ToolTip="Localizar Arquivo de Feedback Negativo" />
-                    <TextBox x:Name="AvalFeedbackNegTxt" Style="{DynamicResource SimpleTextBox}" Margin="60,2,259,0" Grid.Column="2" Grid.Row="2" Height="25" VerticalAlignment="Top" Text="{Binding Path=NegFeed}" ToolTip="{Binding Text, ElementName=AvalFeedbackNegTxt, UpdateSourceTrigger=PropertyChanged}" MaxLines="1" TextWrapping="NoWrap"/>
-                    <Button x:Name="AvalFeedbackNegBtn1" Content="Apagar" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="0,2,200,0" Grid.Column="2" Grid.Row="2" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60" ToolTip="Apaga o Arquivo de Feedback Negativo" Click="AvalFeedbackNegBtn1_Click" />
+                    <Button x:Name="AvalFeedbackNegBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" Margin="0,2,0,0" HorizontalAlignment="Left" Width="61" Grid.Column="2" Grid.Row="2" Height="25" VerticalAlignment="Top" Click="AvalFeedbackNegBtn_Click" ToolTip="Localizar Arquivo de Feedback Negativo" TabIndex="7" />
+                    <TextBox x:Name="AvalFeedbackNegTxt" Style="{DynamicResource SimpleTextBox}" Margin="60,2,259,0" Grid.Column="2" Grid.Row="2" Height="25" VerticalAlignment="Top" Text="{Binding Path=NegFeed}" ToolTip="{Binding Text, ElementName=AvalFeedbackNegTxt, UpdateSourceTrigger=PropertyChanged}" MaxLines="1" TextWrapping="NoWrap" TextChanged="AvalFeedbackNegTxt_TextChanged" TabIndex="8"/>
+                    <Button x:Name="AvalFeedbackNegDel" Content="Apagar" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="0,2,200,0" Grid.Column="2" Grid.Row="2" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60" ToolTip="Apaga o Arquivo de Feedback Negativo" Click="AvalFeedbackNegDel_Click" TabIndex="9" />
                     <!-- Campo Ajuda-->
                     <TextBlock x:Name="AvalAjuda" Margin="20,41,10,14" TextWrapping="NoWrap" Text="Campo de ajuda." Background="#FF3A3A3A" Foreground="#FFDEDEDE" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
                     <!-- Estatísticas -->
@@ -90,7 +90,7 @@
                 </Grid>
             </TabItem>
             <!-- === Questão === -->
-            <TabItem x:Name="QuestTabItem" Header="Questão" Style="{DynamicResource SimpleTabItem}" Margin="5.58,0,-10.613,0" d:LayoutOverrides="HorizontalAlignment">
+            <TabItem x:Name="QuestTabItem" Header="Questão" Style="{DynamicResource SimpleTabItem}" Margin="5.58,0,-10.613,0" d:LayoutOverrides="HorizontalAlignment" TabIndex="100">
                 <Grid x:Name="QuestTab" Background="#FF0F0D0D" Margin="-4.333,-5,-4.405,-3.944">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="159*"/>
@@ -101,76 +101,74 @@
                         <ColumnDefinition Width="70*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="92*"/>
-                        <RowDefinition Height="45*"/>
-                        <RowDefinition Height="75*"/>
-                        <RowDefinition Height="265*"/>
+                        <RowDefinition Height="91*"/>
+                        <RowDefinition Height="44*"/>
+                        <RowDefinition Height="79*"/>
+                        <RowDefinition Height="257*"/>
                     </Grid.RowDefinitions>
                     <!-- === Botões === -->
                     <!-- Lista de Questões -->
-                    <Grid x:Name="QuestaoListaEnun" Margin="10,43.561,19.643,10" d:LayoutOverrides="LeftMargin, RightMargin" Grid.RowSpan="4">
+                    <Grid x:Name="QuestaoListaEnun" Margin="10,0,20,10" Grid.RowSpan="2" Grid.Row="2">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="6*"/>
-                            <RowDefinition Height="83*"/>
+                            <RowDefinition Height="33*"/>
+                            <RowDefinition Height="293*"/>
                         </Grid.RowDefinitions>
-                        <ListBox x:Name="QuestListaListb" Margin="0,0,0,2.553" Style="{DynamicResource SimpleListBox}" Background="#FF3A3A3A" BorderThickness="2" Grid.Row="1" DisplayMemberPath="Titulo">
+                        <ListBox x:Name="QuestListaListb" Margin="0,0,0,3" Style="{DynamicResource SimpleListBox}" Background="#FF3A3A3A" BorderThickness="2" Grid.Row="1" DisplayMemberPath="Titulo">
                             <!-- <ListBoxItem Content="Nova Questão" Style="{DynamicResource SimpleListBoxItem}" Foreground="#FFE6E6E6"/> -->
                         </ListBox>
-                        <Label x:Name="QuestListaLbl" Content="Questões&#xA;" Margin="10,4.898,10,-1.261" Style="{DynamicResource SimpleLabel}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="2" BorderBrush="#FF888888" FontFamily="Verdana" FontSize="18.667" Background="#FF0F0D0D" Foreground="#FFDEDEDE"/>
+                        <Label x:Name="QuestListaLbl" Content="Questões&#xA;" Margin="10,5,10,0" Style="{DynamicResource SimpleLabel}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="2" BorderBrush="#FF888888" FontFamily="Verdana" FontSize="18.667" Background="#FF0F0D0D" Foreground="#FFDEDEDE"/>
                     </Grid>
                     <!-- Nova Questão-->
-                    <Button x:Name="QuestNovo" Content="Nova Questão" Style="{DynamicResource SimpleButton}" Margin="10,11.992,19.643,0" d:LayoutOverrides="LeftMargin, RightMargin" Height="25.314" VerticalAlignment="Top"/>
+                    <Button x:Name="QuestNovo" Content="Nova Questão" Style="{DynamicResource SimpleButton}" Margin="9,12,20,0" Height="25" VerticalAlignment="Top" TabIndex="101"/>
                     <!-- Excluir Questão-->
-                    <Button x:Name="QuestDel" Content="Excluir Questão" Style="{DynamicResource SimpleButton}" Margin="0,0,0.773,-2.351" Grid.Column="2" Grid.Row="2" Height="25.202" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="130.149"/>
                     <!-- Criar Questão Dica -->
-                    <Button x:Name="QuestCriaDica" Content="Criar Dica" Style="{DynamicResource SimpleButton}" Margin="0.187,0,10,-2.351" Grid.Column="4" Grid.Row="2" Grid.ColumnSpan="2" Height="25.202" VerticalAlignment="Bottom"/>
                     <!-- Número de Identificação (Antiga Ordem da Questão)-->
-                    <Label x:Name="NILbl" Content="NI" Height="25" VerticalAlignment="Bottom" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="60" Foreground="#FFDADADA" Grid.Column="1" Margin="0,0,0.358,54.908" />
-                    <TextBox x:Name="NITxt" Style="{DynamicResource SimpleTextBox}" TextWrapping="NoWrap" Text="Número de Identificação" Visibility="Visible" Height="19.738" VerticalAlignment="Bottom" Grid.Column="2" Margin="-0.171,0,0,58.687" HorizontalAlignment="Left" Width="134.964"/>
+                    <Label x:Name="NILbl" Content="NI" Height="25" VerticalAlignment="Bottom" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="60" Foreground="#FFDADADA" Grid.Column="1" Margin="0,0,0,55" />
+                    <TextBox x:Name="NITxt" Style="{DynamicResource SimpleTextBox}" TextWrapping="NoWrap" Text="Número de Identificação" Visibility="Visible" Height="25" VerticalAlignment="Bottom" Grid.Column="2" Margin="0,0,0,53" HorizontalAlignment="Left" Width="149" TabIndex="104"/>
                     <!-- Título -->
-                    <Label x:Name="QuestTituloLbl" Content="Título" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="60" Foreground="#FFDADADA" Grid.Column="1" Margin="0,0,0.358,-2.676" Grid.Row="2" Height="25.129" VerticalAlignment="Bottom" />
-                    <TextBox x:Name="QuestTituloTxt" Style="{DynamicResource SimpleTextBox}" TextWrapping="NoWrap" Text="Texto do título da questão" Visibility="Visible" Grid.Column="2" Margin="-1.092,0,239.959,0.119" Grid.Row="2" Height="19.703" VerticalAlignment="Bottom"/>
+                    <Label x:Name="QuestTituloLbl" Content="Título" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="60" Foreground="#FFDADADA" Grid.Column="1" Margin="0,0,0,256" Grid.Row="2" Height="25" VerticalAlignment="Bottom" Grid.RowSpan="2" />
+                    <TextBox x:Name="QuestTituloTxt" Style="{DynamicResource SimpleTextBox}" TextWrapping="NoWrap" Text="Texto do título da questão" Visibility="Visible" Grid.Column="1" Margin="69,0,200,0" Grid.Row="2" Height="25" VerticalAlignment="Bottom" Grid.ColumnSpan="2" TabIndex="118"/>
                     <!-- Tipo -->
-                    <Label x:Name="QuestTipoLbl" Content="Tipo" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="40" Foreground="#FFDADADA" Margin="164.593,0,0,53.719" Grid.Column="2" HorizontalAlignment="Left" Width="40" Height="25.241" VerticalAlignment="Bottom" />
-                    <ComboBox x:Name="QuestTipoCmb"  Margin="209.183,0,105.413,56.768" Style="{DynamicResource SimpleComboBox}" Height="19.383" VerticalAlignment="Bottom" Grid.Column="2" d:LayoutOverrides="HorizontalAlignment">
+                    <Label x:Name="QuestTipoLbl" Content="Tipo" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="40" Foreground="#FFDADADA" Margin="165,0,0,54" Grid.Column="2" HorizontalAlignment="Left" Width="40" Height="25" VerticalAlignment="Bottom" />
+                    <ComboBox x:Name="QuestTipoCmb"  Margin="209,0,105,51" Style="{DynamicResource SimpleComboBox}" Height="25" VerticalAlignment="Bottom" Grid.Column="2" TabIndex="105">
                         <ComboBoxItem x:Name="TipoMult" Content="Múltipla Escolha" Style="{DynamicResource SimpleComboBoxItem}" IsSelected="True"/>
                         <ComboBoxItem x:Name="TipoOrd" Content="Ordenação" Style="{DynamicResource SimpleComboBoxItem}"/>
                         <ComboBoxItem x:Name="TipoPsico" Content="Psicogênese" Style="{DynamicResource SimpleComboBoxItem}"/>
                         <ComboBoxItem x:Name="TipoMemoria" Content="Memória de Trabalho" Style="{DynamicResource SimpleComboBoxItem}"/>
                     </ComboBox>
                     <!-- Competência -->
-                    <Label x:Name="QuestCompetLbl" Content="Competência" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="40"  Foreground="#FFDADADA" HorizontalAlignment="Right" Width="79.557" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin" Margin="0,0,0,14.972" Height="25" VerticalAlignment="Bottom" />
-                    <ComboBox x:Name="QuestCompetCmb" Margin="19.918,0,9.998,19.853" Style="{DynamicResource SimpleComboBox}" Grid.Column="3" Grid.ColumnSpan="3" Height="20.119" VerticalAlignment="Bottom">
+                    <Label x:Name="QuestCompetLbl" Content="Competência" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="40"  Foreground="#FFDADADA" HorizontalAlignment="Right" Width="80" Grid.Column="2" Margin="0,0,0,15" Height="25" VerticalAlignment="Bottom" />
+                    <ComboBox x:Name="QuestCompetCmb" Margin="20,0,10,15" Style="{DynamicResource SimpleComboBox}" Grid.Column="3" Grid.ColumnSpan="3" Height="25" VerticalAlignment="Bottom" TabIndex="108">
                         <ComboBoxItem x:Name="CompetLastSel" Content="Última Selecionada" Style="{DynamicResource SimpleComboBoxItem}" IsSelected="True"/>
                     </ComboBox>
                     <!-- Cor Enunciado -->
-                    <Label x:Name="QuestCorLbl" Content="Cor" Margin="-11.556,0,0,55.528" Foreground="#FFDADADA" RenderTransformOrigin="-0.314,0.488" Grid.Column="4" HorizontalAlignment="Left" Width="26.543" Height="23.518" VerticalAlignment="Bottom"/>
-                    <Rectangle x:Name="QuestCorBg"  Fill="#FF2FCD00" Stroke="Black"  Margin="19.997,0,10,52.408" Grid.Column="4" Grid.ColumnSpan="2" Height="29.999" VerticalAlignment="Bottom"/>
-                    <ComboBox x:Name="QuestCorCmb" Margin="29.997,0,19.523,57.756" Grid.Column="4" Background="Transparent" Grid.ColumnSpan="2" Height="19.303" VerticalAlignment="Bottom">
+                    <Label x:Name="QuestCorLbl" Content="Cor" Margin="81,0,0,56" Foreground="#FFDADADA" RenderTransformOrigin="-0.314,0.488" Grid.Column="3" HorizontalAlignment="Left" Width="34" Height="23" VerticalAlignment="Bottom" Grid.ColumnSpan="2"/>
+                    <Rectangle x:Name="QuestCorBg"  Fill="#FF2FCD00" Stroke="Black"  Margin="20,0,10,52" Grid.Column="4" Grid.ColumnSpan="2" Height="30" VerticalAlignment="Bottom"/>
+                    <ComboBox x:Name="QuestCorCmb" Margin="30,0,20,55" Grid.Column="4" Background="Transparent" Grid.ColumnSpan="2" Height="24" VerticalAlignment="Bottom" TabIndex="107">
                         <ComboBoxItem x:Name="CorVerm" Content="Vermelho" Style="{DynamicResource SimpleComboBoxItem}" Width="Auto" IsSelected="True" HorizontalAlignment="Left"/>
                         <ComboBoxItem x:Name="CorAmar" Content="Amarelo" Style="{DynamicResource SimpleComboBoxItem}" HorizontalAlignment="Left"/>
                         <ComboBoxItem x:Name="CorVerd" Content="Verde" Style="{DynamicResource SimpleComboBoxItem}" HorizontalAlignment="Left"/>
                         <ComboBoxItem x:Name="CorAzul" Content="Azul" Style="{DynamicResource SimpleComboBoxItem}" HorizontalAlignment="Left"/>
                     </ComboBox>
                     <!-- Dica -->
-                    <Label x:Name="QuestDicaLbl" Content="Dica" Margin="0,0,28.979,55.528" Foreground="#FFDADADA" RenderTransformOrigin="-0.314,0.488" Grid.Column="2" HorizontalAlignment="Right" Width="30.824" d:LayoutOverrides="LeftMargin, RightMargin" Height="23.518" VerticalAlignment="Bottom"/>
-                    <CheckBox x:Name="QuestDicaChk" Content="Dica"  HorizontalAlignment="Right" Margin="0,0,11.054,58.423"  Style="{DynamicResource SimpleCheckBox}" Width="12.922" BorderThickness="2" ClipToBounds="True" Foreground="#FFDADADA" FontSize="16" Grid.Column="2" d:LayoutOverrides="HorizontalAlignment, LeftMargin, RightMargin" Height="17.728" VerticalAlignment="Bottom"/>
+                    <Label x:Name="QuestDicaLbl" Content="Dica" Margin="0,0,29,56" Foreground="#FFDADADA" RenderTransformOrigin="-0.314,0.488" Grid.Column="2" HorizontalAlignment="Right" Width="51" Height="24" VerticalAlignment="Bottom" HorizontalContentAlignment="Right"/>
+                    <CheckBox x:Name="QuestDicaChk" Content="Dica"  HorizontalAlignment="Right" Margin="0,0,11,58"  Style="{DynamicResource SimpleCheckBox}" Width="13" BorderThickness="2" ClipToBounds="True" Foreground="#FFDADADA" FontSize="16" Grid.Column="2" Height="18" VerticalAlignment="Bottom" TabIndex="106"/>
                     <!-- Texto Enunciado -->
-                    <Label x:Name="QuestEnunLbl" Content="Texto" Height="19.5"  Style="{DynamicResource SimpleLabel}" VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" Background="Black" Foreground="#FFDADADA" Grid.Column="1" Margin="16.543,20.758,16.501,0" Grid.Row="3" d:LayoutOverrides="VerticalAlignment" />
-                    <TextBox x:Name="QuestEnuntTxt" Style="{DynamicResource SimpleTextBox}"   TextWrapping="NoWrap" Text="Texto do enunciado" Margin="-0.896,20.758,-0.197,104.418" Grid.Column="2" Grid.Row="3"/>
+                    <Label x:Name="QuestEnunLbl" Content="Texto" Height="19"  Style="{DynamicResource SimpleLabel}" VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" Background="Black" Foreground="#FFDADADA" Grid.Column="1" Margin="17,21,17,0" Grid.Row="3" />
+                    <TextBox x:Name="QuestEnuntTxt" Style="{DynamicResource SimpleTextBox}"   TextWrapping="NoWrap" Text="Texto do enunciado" Margin="69,21,0,104" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" TabIndex="121"/>
                     <!-- Imagem Enunciado -->
-                    <Label x:Name="QuestImgLbl" Content="Imagem"  Style="{DynamicResource SimpleLabel}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="#FFDADADA" Grid.Column="1" Height="22.485" VerticalAlignment="Bottom" RenderTransformOrigin="1.252,-0.783" Margin="10.666,0,19.47,61.932" d:LayoutOverrides="Width, TopMargin, BottomMargin" Grid.Row="3" />
-                    <Button x:Name="QuestImgBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" Margin="-0.171,0,0,62.639" Grid.Column="2" Height="22.198" VerticalAlignment="Bottom" Grid.Row="3" d:LayoutOverrides="TopMargin, BottomMargin" HorizontalAlignment="Left" Width="59.623"/>
-                    <TextBox x:Name="QuestImgTxt"  Style="{DynamicResource SimpleTextBox}" Margin="59.452,0,59.803,62.639"  TextWrapping="NoWrap" Text="Caminho da Imagem" Grid.Column="2" Height="21.984" VerticalAlignment="Bottom" Grid.Row="3" d:LayoutOverrides="TopMargin, BottomMargin"/>
-                    <Button x:Name="QuestImgDel" Content="Apagar" Style="{DynamicResource SimpleButton}"  HorizontalAlignment="Right" Margin="0,0,-0.197,62.551"  Width="60" Background="#FFD4D0C8" ClipToBounds="True" Grid.Column="2" Height="21.866" VerticalAlignment="Bottom" Grid.Row="3" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <Label x:Name="QuestImgLbl" Content="Imagem"  Style="{DynamicResource SimpleLabel}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="#FFDADADA" Grid.Column="1" Height="22" VerticalAlignment="Bottom" RenderTransformOrigin="1.252,-0.783" Margin="10,0,10,62" Grid.Row="3" />
+                    <Button x:Name="QuestImgBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" Margin="0,0,0,60" Grid.Column="2" Height="25" VerticalAlignment="Bottom" Grid.Row="3" HorizontalAlignment="Left" Width="59" TabIndex="122"/>
+                    <TextBox x:Name="QuestImgTxt"  Style="{DynamicResource SimpleTextBox}" Margin="59,0,60,60"  TextWrapping="NoWrap" Text="Caminho da Imagem" Grid.Column="2" Height="25" VerticalAlignment="Bottom" Grid.Row="3" TabIndex="123"/>
+                    <Button x:Name="QuestImgDel" Content="Apagar" Style="{DynamicResource SimpleButton}"  HorizontalAlignment="Right" Margin="0,0,0,59"  Width="60" Background="#FFD4D0C8" ClipToBounds="True" Grid.Column="2" Height="25" VerticalAlignment="Bottom" Grid.Row="3" TabIndex="124"/>
                     <!-- Audio Enunciado -->
-                    <Label x:Name="QuestAudioLbl" Content="Áudio"  Style="{DynamicResource SimpleLabel}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="16.51,0,26.549,13.676"  Background="Black" Foreground="#FFDADADA" Grid.Column="1" Height="21.989" VerticalAlignment="Bottom" d:LayoutOverrides="Width, TopMargin, BottomMargin" Grid.Row="3" />
-                    <Button x:Name="QuestAudioBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" Grid.Column="2" Height="21.984" Margin="-0.171,0,0,14.469" VerticalAlignment="Bottom" Grid.Row="3" d:LayoutOverrides="TopMargin, BottomMargin" HorizontalAlignment="Left" Width="59.623"/>
-                    <TextBox x:Name="QuestAudioTxt"  Style="{DynamicResource SimpleTextBox}" Margin="59.452,0,59.803,14.614"  TextWrapping="NoWrap" Text="Caminho do Áudio" Grid.Column="2" Height="21.985" VerticalAlignment="Bottom" Grid.Row="3" d:LayoutOverrides="TopMargin, BottomMargin"/>
-                    <Button x:Name="QuestAudioDel" Content="Apagar" Style="{DynamicResource SimpleButton}"  HorizontalAlignment="Right" Margin="0,0,-0.197,14.615"  Width="60" Grid.Column="2" Height="21.984" VerticalAlignment="Bottom" Grid.Row="3" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <Label x:Name="QuestAudioLbl" Content="Áudio"  Style="{DynamicResource SimpleLabel}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="11,0,17,14"  Background="Black" Foreground="#FFDADADA" Grid.Column="1" Height="22" VerticalAlignment="Bottom" Grid.Row="3" />
+                    <Button x:Name="QuestAudioBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" Grid.Column="2" Height="25" Margin="0,0,0,11" VerticalAlignment="Bottom" Grid.Row="3" HorizontalAlignment="Left" Width="59" TabIndex="125"/>
+                    <TextBox x:Name="QuestAudioTxt"  Style="{DynamicResource SimpleTextBox}" Margin="59,0,60,12"  TextWrapping="NoWrap" Text="Caminho do Áudio" Grid.Column="2" Height="25" VerticalAlignment="Bottom" Grid.Row="3" TabIndex="126"/>
+                    <Button x:Name="QuestAudioDel" Content="Apagar" Style="{DynamicResource SimpleButton}"  HorizontalAlignment="Right" Margin="0,0,0,12"  Width="60" Grid.Column="2" Height="25" VerticalAlignment="Bottom" Grid.Row="3"/>
                     <!-- Tentativas -->
-                    <Label x:Name="QuestTentaLbl" Content="Tentativas"  Style="{DynamicResource SimpleLabel}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="58.973,37.306,60,0" Background="Black" Foreground="#FFDADADA" Height="0.024" VerticalAlignment="Top" d:LayoutOverrides="LeftMargin, RightMargin" />
-                    <ComboBox x:Name="QuestTentaCmb"  HorizontalAlignment="Right" Margin="0,37.306,0,0"  Style="{DynamicResource SimpleComboBox}" Width="60" Height="0.024" VerticalAlignment="Top" d:LayoutOverrides="LeftMargin, RightMargin">
+                    <Label x:Name="QuestTentaLbl" Content="Tentativas"  Style="{DynamicResource SimpleLabel}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="59,37,60,0" Background="Black" Foreground="#FFDADADA" Height="0" VerticalAlignment="Top" />
+                    <ComboBox x:Name="QuestTentaCmb"  HorizontalAlignment="Right" Margin="0,37,0,0"  Style="{DynamicResource SimpleComboBox}" Width="60" Height="0" VerticalAlignment="Top">
                         <ComboBoxItem x:Name="Tentativas1" Content="1" Style="{DynamicResource SimpleComboBoxItem}" Width="20" IsSelected="True"/>
                         <ComboBoxItem x:Name="Tentativas2" Content="2" Style="{DynamicResource SimpleComboBoxItem}" Width="20"/>
                         <ComboBoxItem x:Name="Tentativas3" Content="3" Style="{DynamicResource SimpleComboBoxItem}" Width="20"/>
@@ -178,35 +176,37 @@
                         <ComboBoxItem x:Name="Tentativas5" Content="5" Style="{DynamicResource SimpleComboBoxItem}" Width="20"/>
                     </ComboBox>
                     <!-- Eixo -->
-                    <Label x:Name="QuestEixoLbl" Content="Eixo" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="40"  Foreground="#FFDADADA" Grid.Column="2" Margin="164.593,0,0,14.972" HorizontalAlignment="Left" Width="40" Height="25" VerticalAlignment="Bottom" />
-                    <ComboBox x:Name="QuestEixoCmb" Margin="209.593,0,105.003,19.853" Style="{DynamicResource SimpleComboBox}" Grid.Column="2" Height="20.119" VerticalAlignment="Bottom" d:LayoutOverrides="HorizontalAlignment">
+                    <Label x:Name="QuestEixoLbl" Content="Eixo" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="40"  Foreground="#FFDADADA" Grid.Column="2" Margin="165,0,0,15" HorizontalAlignment="Left" Width="40" Height="25" VerticalAlignment="Bottom" />
+                    <ComboBox x:Name="QuestEixoCmb" Margin="210,0,105,15" Style="{DynamicResource SimpleComboBox}" Grid.Column="2" Height="25" VerticalAlignment="Bottom" TabIndex="107">
                         <ComboBoxItem x:Name="CompetLastSel1" Content="Última Selecionada" Style="{DynamicResource SimpleComboBoxItem}" IsSelected="True"/>
                     </ComboBox>
                     <!-- Disciplina -->
-                    <Label x:Name="QuestDisciLbl" Content="Disciplina" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="40"  Foreground="#FFDADADA" Grid.Column="1" Margin="4.292,0,10.577,14.972" Height="25" VerticalAlignment="Bottom" d:LayoutOverrides="Width" />
-                    <ComboBox x:Name="QuestDisciCmb" Margin="-0.171,0,0,19.853" Style="{DynamicResource SimpleComboBox}" Grid.Column="2" Height="20.119" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="134.043">
+                    <Label x:Name="QuestDisciLbl" Content="Disciplina" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Background="#FF0F0D0D" MinHeight="25" MinWidth="40"  Foreground="#FFDADADA" Grid.Column="1" Margin="0,0,0,15" Height="25" VerticalAlignment="Bottom" />
+                    <ComboBox x:Name="QuestDisciCmb" Margin="0,0,0,15" Style="{DynamicResource SimpleComboBox}" Grid.Column="2" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="149" TabIndex="108">
                         <ComboBoxItem x:Name="DisciTreino" Content="Treino" Style="{DynamicResource SimpleComboBoxItem}" IsSelected="True"/>
                         <ComboBoxItem x:Name="DisciLP" Content="Língua Portuguesa" Style="{DynamicResource SimpleComboBoxItem}"/>
                         <ComboBoxItem x:Name="DisciMat" Content="Matemática" Style="{DynamicResource SimpleComboBoxItem}"/>
                     </ComboBox>
                     <!-- Feedback Enunciado -->
-                    <Label x:Name="QuestFeedbackLbl" Content="Feedback &#xA;Questão"  Style="{DynamicResource SimpleLabel}" Margin="-0.474,15.009,0.536,-8.528" Background="Black" Foreground="#FFDADADA"  HorizontalContentAlignment="Center" Grid.Column="1" Grid.Row="1" Height="38.487" VerticalAlignment="Top" d:LayoutOverrides="TopMargin, BottomMargin"/>
-                    <Button x:Name="QuestFeedbackPosBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" Grid.Column="2" Grid.Row="1" Margin="-0.536,5.009,0,0" Height="25.324" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60.709"/>
-                    <TextBox x:Name="QuestFeedbackPosTxt" Style="{DynamicResource SimpleTextBox}" Margin="60.173,5.009,259.97,0" TextWrapping="NoWrap" Grid.Column="2" Grid.Row="1" Height="25.324" VerticalAlignment="Top"/>
-                    <Button x:Name="QuestFeedbackPosDel" Content="Apagar" Style="{DynamicResource SimpleButton}"  Margin="0,5.009,199.97,0" MinWidth="60" Grid.Column="2" Grid.Row="1" Height="25.324" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60"/>
-                    <TextBox x:Name="QuestFeedbackNegTxt" Style="{DynamicResource SimpleTextBox}" TextWrapping="NoWrap" Margin="60,0,259,0" Grid.Column="2" Grid.Row="2" Height="25" VerticalAlignment="Top"/>
-                    <Button x:Name="QuestFeedbackNegBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" Margin="69,0,0,0" Grid.Column="1" Grid.Row="2" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="61" Grid.ColumnSpan="2"/>
-                    <Button x:Name="QuestFeedbackNegDel" Content="Apagar" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="0,0,200,0" Grid.Column="2" Grid.Row="2" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60"/>
+                    <Label x:Name="QuestFeedbackLbl" Content="Feedback &#xA;Questão"  Style="{DynamicResource SimpleLabel}" Margin="0,15,1,0" Background="Black" Foreground="#FFDADADA"  HorizontalContentAlignment="Center" Grid.Column="1" Grid.Row="1" Height="38" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                    <Button x:Name="QuestFeedbackPosBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" Grid.Column="1" Grid.Row="1" Margin="69,5,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="61" TabIndex="109" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="QuestFeedbackPosTxt" Style="{DynamicResource SimpleTextBox}" Margin="60,5,260,0" TextWrapping="NoWrap" Grid.Column="2" Grid.Row="1" Height="25" VerticalAlignment="Top" TabIndex="110"/>
+                    <Button x:Name="QuestFeedbackPosDel" Content="Apagar" Style="{DynamicResource SimpleButton}"  Margin="0,5,200,0" MinWidth="60" Grid.Column="2" Grid.Row="1" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60" TabIndex="111"/>
+                    <TextBox x:Name="QuestFeedbackNegTxt" Style="{DynamicResource SimpleTextBox}" TextWrapping="NoWrap" Margin="60,0,259,0" Grid.Column="2" Grid.Row="2" Height="25" VerticalAlignment="Top" TabIndex="113"/>
+                    <Button x:Name="QuestFeedbackNegBtn" Content="Localizar" Style="{DynamicResource SimpleButton}" Margin="69,0,0,0" Grid.Column="1" Grid.Row="2" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="61" Grid.ColumnSpan="2" TabIndex="112"/>
+                    <Button x:Name="QuestFeedbackNegDel" Content="Apagar" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="0,0,200,0" Grid.Column="2" Grid.Row="2" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60" TabIndex="114"/>
                     <!-- Saltos Enunciado -->
-                    <Label x:Name="QuestSaltosLbl" Content="Saltos &#xA;Questão"  Style="{DynamicResource SimpleLabel}" Margin="0,15.009,0.773,-8.528" Background="Black" Foreground="#FFDADADA"  HorizontalContentAlignment="Center" HorizontalAlignment="Right" Width="54.967" Grid.Column="2" Grid.Row="1" Height="38.487" VerticalAlignment="Top" d:LayoutOverrides="TopMargin, BottomMargin"/>
-                    <Button x:Name="QuestSaltosPosDel" Content="Apagar" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="-0.48,5.008,10,0" Grid.Column="5" Grid.Row="1" Height="25.324" VerticalAlignment="Top"/>
-                    <Button x:Name="QuestSaltosNegDel" Content="Apagar" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="-0.48,1.74,10,0" Grid.Column="5" Grid.Row="2" Height="25" VerticalAlignment="Top"/>
-                    <ComboBox x:Name="QuestSaltosPosCmb" Margin="19.918,5.009,0.48,0" Style="{DynamicResource SimpleComboBox}" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="2" Height="25.324" VerticalAlignment="Top" ItemsSource="{Binding _LISTANI}" />
-                    <ComboBox x:Name="QuestSaltosNegCmb" Margin="19.918,1.741,0.48,0" Style="{DynamicResource SimpleComboBox}" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2" Height="24.999" VerticalAlignment="Top"  ItemsSource="{Binding _LISTANI}" />
+                    <Label x:Name="QuestSaltosLbl" Content="Saltos &#xA;Questão"  Style="{DynamicResource SimpleLabel}" Margin="0,15,1,0" Background="Black" Foreground="#FFDADADA"  HorizontalContentAlignment="Center" HorizontalAlignment="Right" Width="55" Grid.Column="2" Grid.Row="1" Height="38" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                    <Button x:Name="QuestSaltosPosDel" Content="Apagar" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="0,5,10,0" Grid.Column="5" Grid.Row="1" Height="25" VerticalAlignment="Top" TabIndex="114"/>
+                    <Button x:Name="QuestSaltosNegDel" Content="Apagar" Style="{DynamicResource SimpleButton}" Background="#FFD4D0C8" ClipToBounds="True" MinWidth="60" Margin="0,2,10,0" Grid.Column="5" Grid.Row="2" Height="25" VerticalAlignment="Top" TabIndex="117"/>
+                    <ComboBox x:Name="QuestSaltosPosCmb" Margin="20,5,0,0" Style="{DynamicResource SimpleComboBox}" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="2" Height="25" VerticalAlignment="Top" ItemsSource="{Binding _LISTANI}" TabIndex="113" />
+                    <ComboBox x:Name="QuestSaltosNegCmb" Margin="20,2,0,0" Style="{DynamicResource SimpleComboBox}" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2" Height="25" VerticalAlignment="Top"  ItemsSource="{Binding _LISTANI}" TabIndex="116" />
                     <!-- Campo Ajuda -->
-                    <TextBlock x:Name="QuestAjuda" Grid.Column="3" Margin="19.916,20.758,10,10" Grid.Row="3" TextWrapping="NoWrap" Text="Campo de ajuda." Background="#FF3A3A3A" Foreground="#FFDEDEDE" Grid.ColumnSpan="3"/>
-                    <TextBox x:Name="QuestSaltosPosTxt" Style="{DynamicResource SimpleTextBox}" TextWrapping="NoWrap" Grid.Column="3" Margin="19.916,5.009,20.498,0" Grid.Row="1" Grid.ColumnSpan="2" Height="25.324" VerticalAlignment="Top"/>
-                    <TextBox x:Name="QuestSaltosNegTxt" Style="{DynamicResource SimpleTextBox}" TextWrapping="NoWrap" Margin="19.916,1.741,20.498,0" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2" Height="24.999" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="QuestAjuda" Grid.Column="3" Margin="20,21,10,10" Grid.Row="3" TextWrapping="NoWrap" Text="Campo de ajuda." Background="#FF3A3A3A" Foreground="#FFDEDEDE" Grid.ColumnSpan="3"/>
+                    <TextBox x:Name="QuestSaltosPosTxt" Style="{DynamicResource SimpleTextBox}" TextWrapping="NoWrap" Grid.Column="3" Margin="20,5,20,0" Grid.Row="1" Grid.ColumnSpan="2" Height="25" VerticalAlignment="Top" TabIndex="112"/>
+                    <TextBox x:Name="QuestSaltosNegTxt" Style="{DynamicResource SimpleTextBox}" TextWrapping="NoWrap" Margin="20,2,20,0" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2" Height="25" VerticalAlignment="Top" TabIndex="115"/>
+                    <Button x:Name="QuestDel" Content="Excluir Questão" Style="{DynamicResource SimpleButton}" Margin="0,0,20,19" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="130" TabIndex="103" Grid.Row="1"/>
+                    <Button x:Name="QuestCriaDica" Content="Criar Dica" Style="{DynamicResource SimpleButton}" Margin="9,0,20,15" Height="25" VerticalAlignment="Bottom" TabIndex="102"/>
                 </Grid>
                 <!-- //EnunCounteudo -->
             </TabItem>
